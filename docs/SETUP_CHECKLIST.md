@@ -1,172 +1,308 @@
-# 가입·연동·배포 체크리스트
+# 외부 서비스 연결 체크리스트 (비개발자용)
 
-코드는 외부 서비스 없이도 "데모 모드"로 전부 동작하도록 만들어 두었습니다. 이 문서는 **실제 서비스를 하나씩 붙이고 배포할 때** 해야 할 일을 순서대로 모은 것입니다.
+지금 쇼핑몰은 외부 서비스 없이 "데모 모드"로 전부 동작합니다. 이 문서는 **실제 서비스를 하나씩 붙이고, 인터넷에 올리는(배포) 순서**를 모은 것입니다.
 
-- 각 단계는 독립적입니다. 하나만 붙여도 나머지는 데모 모드로 계속 동작합니다.
-- 키는 전부 `.env.local`(로컬)과 Vercel 환경변수(배포)에만 넣습니다. git 에 올리지 마세요.
-- **[미확인]** 표시는 제가 공식 문서나 실제 계정으로 확인하지 못한 부분입니다. 해당 단계에서 직접 확인이 필요합니다.
+- 모르는 말은 [용어 사전](GLOSSARY.md), 터미널 쓰는 법은 [실행·구조 안내](RUN_GUIDE.md)를 보세요.
+- **각 단계는 따로따로입니다.** 하나만 붙여도 나머지는 데모 모드로 계속 동작합니다. 하다가 막히면 그 단계만 멈추면 됩니다.
+- `[미확인]` 은 제가 공식 문서나 실제 계정으로 **확인하지 못한 부분**입니다. 그 단계에서 직접 확인이 필요합니다.
+- `- [ ]` 는 체크 칸입니다. 끝낸 항목은 메모장에서 `- [x]` 로 바꿔 두면 진행 상황을 볼 수 있습니다.
 
-권장 순서: 0 → 1(GitHub) → 2(Supabase) → 3(토스) → 9(Vercel 배포) → 나머지는 아무 때나
+**권장 순서:** 0(준비) → 1(GitHub) → 2(Supabase) → 3(토스) → 9(Vercel 배포) → 나머지는 아무 때나
+
+**저에게 맡겨도 되는 부분:** 가입, 비밀번호 입력, 결제 수단 등록은 직접 하셔야 합니다. 가입 후 받은 키를 `.env.local` 에 넣는 일, 명령어 실행, 확인 작업은 말씀해 주시면 제가 할 수 있습니다. 단, **비밀 키를 채팅에 붙여 넣지는 마세요.** 파일에 직접 넣는 방법을 안내해 드리겠습니다.
 
 ---
 
-## 0. 로컬 준비
+## 들어가기 전에: 키를 어디에 적나
 
-- [ ] **Node 26 설치.** 스택 결정은 Node 26 이지만, 지금 이 PC 에는 Node 24.22.1 이 깔려 있어 그걸로 개발·검증했습니다. `.nvmrc` 는 26 입니다.
-  - 설치 후 `node --version` 으로 확인 → `pnpm install` → `pnpm test` 다시 실행
-- [ ] **pnpm** 은 `package.json` 의 `packageManager`(pnpm@12.21.0)를 Corepack 이 맞춰 줍니다: `corepack enable`
-- [ ] `.env.example` 을 복사해 `.env.local` 만들기, `SESSION_SECRET` 채우기
+외부 서비스에 가입하면 **API 키**(서비스가 "당신이 누구인지" 확인하는 열쇠)를 줍니다. 이 키를 쇼핑몰에 알려 주는 곳이 두 군데입니다.
+
+| 어디                            | 언제 쓰나                        | 어떻게                                                    |
+| ------------------------------- | -------------------------------- | --------------------------------------------------------- |
+| `.env.local` 파일               | **내 컴퓨터**에서 쇼핑몰을 켤 때 | 메모장으로 열어 `이름=값` 을 한 줄씩 적음                 |
+| Vercel 의 Environment Variables | **인터넷에 올린** 쇼핑몰이 쓸 때 | Vercel 웹사이트 설정 화면에 같은 이름과 값을 입력 (9단계) |
+
+**규칙**
+
+- `NEXT_PUBLIC_` 으로 시작하는 이름은 **공개 키**(화면에 들어가도 되는 키), 나머지는 **비밀 키**입니다.
+- 비밀 키는 **채팅, 메일, 스크린샷, GitHub 에 절대 올리지 마세요.** `.env.local` 은 GitHub 에 올라가지 않게 미리 막아 두었습니다.
+- 값을 바꾼 뒤에는 쇼핑몰을 **껐다가 다시 켜야**(Ctrl+C → `pnpm dev`) 반영됩니다.
+
+---
+
+## 0. 내 컴퓨터 준비
+
+### 0-1. Node.js 버전 맞추기 (선택)
+
+- [ ] **Node 26 설치.** 계획은 Node 26 이지만, 지금 이 PC 에는 Node 24.22.1 이 있고 그걸로 전부 검사를 통과했습니다. 급하지 않습니다.
+  - **Node.js 란:** 쇼핑몰 프로그램을 돌리는 엔진입니다.
+  - 설치: nodejs.org 에서 내려받아 설치 → 터미널을 새로 열고 `node --version` 입력 → `v26.…` 이 나오면 정상
+  - 그다음 프로젝트 폴더에서 `pnpm install` → `pnpm test` (`Tests 20 passed` 나오면 정상)
+
+### 0-2. pnpm 준비
+
+- [ ] 이미 설치되어 있습니다(12.21.0). 새 컴퓨터라면 터미널에 `corepack enable` 을 입력하세요.
+  - **뜻:** Node.js 에 들어 있는 도구(Corepack)에게 "이 프로젝트가 정한 pnpm 버전을 알아서 맞춰 줘"라고 켜 두는 명령입니다.
+  - **정상:** 아무 글자 없이 프롬프트가 다시 나옵니다.
+
+### 0-3. `.env.local` 파일 만들기
+
+- [ ] 빈 양식(`.env.example`)을 복사해서 `.env.local` 을 만듭니다. 프로젝트 폴더의 터미널에서:
+
+  ```powershell
+  Copy-Item .env.example .env.local
   ```
+
+  - **뜻:** `.env.example` 파일을 복사해 `.env.local` 이라는 이름으로 저장합니다. (파일 탐색기에서 복사·이름 바꾸기를 해도 되지만, Windows 가 확장자를 숨겨서 `.env.local.txt` 처럼 잘못 저장되는 일이 많아 명령어를 권합니다)
+  - **정상:** 아무 글자 없이 끝나고, 폴더에 `.env.local` 이 생깁니다.
+  - **열기:** `notepad .env.local` 을 입력하면 메모장으로 열립니다.
+
+- [ ] `SESSION_SECRET` 채우기. 로그인 출입증(쿠키)을 위조하지 못하게 서명하는 **비밀 문자열**입니다. 아래 명령이 무작위 문자열 64글자를 만들어 줍니다.
+
+  ```powershell
   node -e "console.log(crypto.randomBytes(32).toString('hex'))"
   ```
 
-## 1. GitHub 저장소
+  - **정상:** `3f9a…` 처럼 숫자와 a~f 로 된 긴 줄 하나가 나옵니다.
+  - 그 줄을 복사해서 `.env.local` 의 `SESSION_SECRET=` 뒤에 붙여 넣고 저장합니다. 예) `SESSION_SECRET=3f9a…`
+  - 실행할 때마다 다른 값이 나오는 것이 정상입니다.
 
-- [ ] github.com 에서 새 **private** 저장소 만들기 (예: `chanhee-mall`)
-- [ ] 로컬 커밋 올리기
-  ```
-  git remote add origin https://github.com/<아이디>/chanhee-mall.git
+## 1. GitHub 저장소 (코드 보관 + 자동 검사)
+
+**GitHub 란:** 코드의 변경 기록(커밋)을 인터넷에 보관하는 서비스입니다. 컴퓨터가 고장 나도 코드가 남고, 올릴 때마다 자동 검사(CI)가 돌고, 9단계 Vercel 이 여기서 코드를 가져가 배포합니다. 지금은 코드가 **이 컴퓨터에만** 있습니다.
+
+- [ ] github.com 가입 (이미 계정이 있으면 생략)
+- [ ] 오른쪽 위 `+` → **New repository** → 이름 `chanhee-mall`, **Private**(나만 보기) 선택 → 다른 옵션(README 추가 등)은 **체크하지 말고** Create
+- [ ] 내 컴퓨터의 커밋을 GitHub 로 올리기(푸시). 프로젝트 폴더 터미널에서 한 줄씩:
+
+  ```powershell
+  git branch -M main
+  git remote add origin https://github.com/<내 GitHub 아이디>/chanhee-mall.git
   git push -u origin main
   ```
-  (현재 브랜치 이름이 `master` 라면 `git branch -M main` 먼저)
-- [ ] Settings → Code security → **Dependabot alerts / security updates** 켜기 (`.github/dependabot.yml` 은 이미 있음)
-- [ ] Actions 탭에서 **CI** 가 초록불인지 확인 (린트·타입·단위 테스트·빌드·E2E·보안 감사)
-  - [미확인] private 저장소의 무료 Actions 분량(월 몇 분)은 계정 플랜에 따라 다름. CI 1회 약 5~8분 예상
-  - [미확인] 액션은 `@v4` 같은 메이저 태그로 적었습니다. 더 엄격히 하려면 커밋 SHA 로 고정
-- [ ] 배포 후(9단계) Settings → Secrets and variables → Actions 에 **`SITE_URL`** 추가 → 매일 깨우기 핑(`keepalive.yml`)이 동작
 
-## 2. Supabase (DB·로그인·이미지·실시간)
+  - **뜻:** ① 기본 갈래 이름을 `main` 으로 맞추고 ② "이 프로젝트의 인터넷 보관함은 저 주소"라고 등록한 뒤 ③ 지금까지의 커밋을 전부 올립니다.
+  - `<내 GitHub 아이디>` 는 꺾쇠까지 지우고 본인 아이디로 바꿉니다.
+  - **정상:** 처음이면 GitHub 로그인 창이 뜹니다(브라우저로 로그인). 끝나면 `main -> main` 이라는 줄이 보입니다. GitHub 저장소 페이지를 새로고침하면 파일들이 보입니다.
+  - **오류 `remote origin already exists`:** 이미 등록된 상태입니다. 둘째 줄은 건너뛰고 셋째 줄만 실행하세요.
+  - **오류 `Authentication failed` / `Permission denied`:** 로그인한 계정이 저장소 주인과 다릅니다. 저에게 말씀해 주세요.
+  - 원하시면 이 단계는 제가 해 드릴 수 있습니다(저장소 주소만 알려 주세요).
 
-- [ ] supabase.com 가입 → New project (리전: **Northeast Asia (Seoul)**), DB 비밀번호는 비밀번호 관리자에 저장
-- [ ] **Authentication → Sign In / Providers → Email → "Confirm email" 끄기** (스택 결정: 메일 인증 없음. 안 끄면 가입 직후 로그인이 안 됨)
-- [ ] Project Settings → API Keys 에서 `.env.local` 에 넣기
-  - `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`(sb_publishable_…), `SUPABASE_SECRET_KEY`(sb_secret_…)
-  - 세 값이 다 있으면 자동으로 Supabase 모드가 됩니다(`DATA_BACKEND=auto`)
-- [ ] **Supabase CLI 준비.** devDependency 로 설치는 했지만 이 PC 에서 CLI 실행 파일이 내려받아지지 않았습니다(`node_modules/supabase/bin` 없음). 다음 중 하나:
-  - `pnpm rebuild supabase` 다시 시도, 또는
-  - Windows: `scoop install supabase` (공식 안내 방식)
-- [ ] 프로젝트 연결 후 테이블 만들기
-  ```
+- [ ] 저장소의 **Settings → Code security → Dependabot alerts / Dependabot security updates 켜기**
+  - **Dependabot 이란:** 쓰고 있는 부품에 보안 문제가 알려지면 알려 주고 업데이트를 제안하는 기능입니다. 설정 파일(`.github/dependabot.yml`)은 이미 넣어 두었습니다.
+- [ ] 저장소 위쪽 **Actions** 탭에서 **CI** 가 초록 체크(✓)인지 확인
+  - **CI 란:** 코드를 올릴 때마다 자동으로 코드 검사·규칙 검사 20개·빌드·브라우저 검사 4개·보안 감사를 돌리는 것입니다. 빨간 ✗ 면 어디서 실패했는지 클릭해서 보고 저에게 알려 주세요.
+  - [미확인] Private 저장소의 무료 Actions 사용 시간(월 몇 분)은 계정 플랜에 따라 다릅니다. CI 1회에 약 5~8분 예상
+  - [미확인] 자동 작업이 쓰는 외부 부품은 `@v4` 같은 큰 버전으로만 적었습니다. 더 엄격하게 하려면 정확한 고유번호(커밋 SHA)로 고정
+- [ ] (9단계 배포 후) **Settings → Secrets and variables → Actions → New repository secret** 에 이름 `SITE_URL`, 값 `https://<배포 주소>` 추가
+  - **왜:** 매일 한 번 사이트를 자동으로 방문해(`keepalive.yml`), Supabase 무료 프로젝트가 7일 동안 사용이 없으면 잠드는 것을 막습니다.
+
+## 2. Supabase (데이터베이스·로그인·이미지·실시간)
+
+**Supabase 란:** 상품·주문·회원 정보를 **영구 저장하는 데이터베이스**와 로그인, 이미지 저장, 실시간 알림을 한 번에 주는 서비스입니다. 붙이면 쇼핑몰을 껐다 켜도 데이터가 사라지지 않습니다.
+
+### 2-1. 가입과 키
+
+- [ ] supabase.com 가입 → **New project**
+  - Region(서버 위치): **Northeast Asia (Seoul)**
+  - Database Password: 자동 생성 버튼을 누르고 **비밀번호 관리자나 안전한 곳에 저장** (나중에 필요할 수 있음)
+  - 만들어지는 데 1~2분 걸립니다
+- [ ] **Authentication → Sign In / Providers → Email → "Confirm email" 끄기**
+  - **왜:** 이 쇼핑몰은 가입 확인 메일 없이 바로 로그인하도록 설계했습니다. 켜 두면 가입 직후 로그인이 안 됩니다.
+- [ ] **Project Settings → API Keys** 에서 값 3개를 복사해 `.env.local` 에 넣기
+
+  | `.env.local` 이름                      | Supabase 화면의 값                    | 종류     |
+  | -------------------------------------- | ------------------------------------- | -------- |
+  | `NEXT_PUBLIC_SUPABASE_URL`             | Project URL (`https://….supabase.co`) | 공개     |
+  | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Publishable key (`sb_publishable_…`)  | 공개     |
+  | `SUPABASE_SECRET_KEY`                  | Secret key (`sb_secret_…`)            | **비밀** |
+  - 세 값이 다 있으면 쇼핑몰이 **자동으로 Supabase 를 씁니다**(`DATA_BACKEND=auto`). 아직 테이블을 안 만들었으니 2-2 를 마치기 전에는 쇼핑몰을 켜지 마세요.
+
+### 2-2. 데이터베이스에 시트(테이블) 만들기
+
+**두 가지 방법** 중 하나를 고르세요. **방법 A(웹 화면)가 쉽고 확실합니다.**
+
+**방법 A. Supabase 웹 화면에 붙여 넣기 (추천)**
+
+- [ ] 왼쪽 메뉴 **SQL Editor** → New query
+- [ ] 메모장으로 `supabase\migrations\20261122000001_init.sql` 을 열어 전체 복사(Ctrl+A, Ctrl+C) → SQL Editor 에 붙여 넣기 → 오른쪽 아래 **Run**
+  - **SQL 이란:** 데이터베이스에 일을 시키는 전용 언어입니다. 이 파일은 상품·주문·회원 시트와 보안 규칙(RLS)을 만듭니다.
+  - **정상:** 아래에 `Success. No rows returned`
+- [ ] 같은 방법으로 `supabase\migrations\20261122000002_cron_queues.sql` 실행 (예약 작업·대기열)
+  - [미확인] 무료 플랜에서 예약 작업(pg_cron)·대기열(pgmq) 기능을 쓸 수 있는지. 실패하면 오류 글자를 복사해 보내 주세요. **Database → Extensions** 에서 `pg_cron`, `pgmq` 를 직접 켜고 다시 실행하면 될 수 있습니다.
+- [ ] 같은 방법으로 `supabase\seed.sql` 실행 (데모 상품 24개 넣기)
+  - **정상:** 왼쪽 **Table Editor → products** 에 상품 24줄이 보입니다
+
+**방법 B. 명령어로 (개발자 방식, 참고)**
+
+- [ ] Supabase CLI(명령어 도구) 준비. 부품으로 설치는 했지만 이 PC 에서 실행 파일이 내려받아지지 않았습니다(`node_modules/supabase/bin` 없음). `pnpm rebuild supabase` 를 다시 시도하거나, 공식 안내대로 `scoop install supabase`
+- [ ] 연결 후 적용
+
+  ```powershell
   pnpm exec supabase login
   pnpm exec supabase link --project-ref <프로젝트ID>
   pnpm db:push
   ```
+
+  - `<프로젝트ID>` = Supabase 주소 `https://abcdefgh.supabase.co` 의 `abcdefgh` 부분
   - [미확인] `supabase/config.toml` 이 없어서 link 전에 `supabase init` 을 요구할 수 있습니다. 요구하면 실행하세요(기존 migrations 폴더는 그대로 씀)
-  - 대안: 대시보드 SQL Editor 에 `supabase/migrations/` 의 두 파일을 순서대로 붙여넣고 실행
-- [ ] 상품 데이터 넣기: SQL Editor 에 `supabase/seed.sql` 붙여넣고 실행
-- [ ] 데모 계정 2개 만들기: `pnpm db:demo-users` (관리자 계정은 profiles.role 을 admin 으로 바꿔 줌)
-- [ ] 타입 다시 만들기: `pnpm db:types` → `src/types/supabase.ts` 가 실제 스키마로 바뀜 → `pnpm typecheck`
-  - 지금 파일은 제가 손으로 쓴 것이라 실제와 다를 수 있습니다
-- [ ] `pnpm dev` → 로그인·장바구니·주문이 Supabase 에 저장되는지 확인 (Table Editor 에서 orders 확인)
-- [ ] 이미지 업로드 확인: 관리자 → 상품 수정 → 파일 선택
-  - [미확인] 무료 플랜에서 tus(이어 올리기) 업로드 지원 여부. 안 되면 "이미지 주소" 입력으로 대체 가능
-  - 업로드한 이미지가 안 보이면 `next.config.ts` 의 `images.remotePatterns` 확인
-- [ ] 실시간 알림 확인: 관리자 대시보드를 열어 둔 채 다른 브라우저에서 주문 → "새 주문" 알림
-  - [미확인] Realtime 구독에도 RLS 가 적용되어 관리자만 받는지 (고객 계정으로 구독해 보고 다른 사람 주문이 안 오는지 확인 권장)
-- [ ] **예약 작업(pg_cron)·큐(pgmq)** — 두 번째 마이그레이션이 켭니다
-  - [미확인] 무료 플랜에서 pg_cron / pgmq 사용 가능 여부. 마이그레이션이 실패하면 Database → Extensions 에서 켤 수 있는지 확인
-  - 5분마다 만료 주문 정리(`expire-pending-orders`)는 SQL 만으로 동작
-  - 메일 재시도(10분마다 `/api/jobs/email-retry` 호출)는 pg_net + Vault 가 필요해 **주석 처리**해 두었습니다. 배포 후 마이그레이션 파일 맨 아래 주석의 안내대로 Vault 에 `site_url`, `cron_secret` 을 넣고 실행
-  - 대안(스택 결정의 예비안): Upstash QStash 로 같은 API 호출
-- [ ] 7일 무활동 일시정지 방지: 1단계의 `SITE_URL` 시크릿 설정으로 해결 (매일 `/api/health` 가 DB 를 한 번 읽음)
-  - [미확인] Supabase 가 무엇을 "활동"으로 세는지 공식 기준
+  - 상품 데이터는 방법 A 처럼 `seed.sql` 을 SQL Editor 에서 실행
 
-## 3. 토스페이먼츠 (결제, 테스트 모드만)
+### 2-3. 데모 계정과 확인
 
-- [ ] developers.tosspayments.com 가입 (사업자 없이 테스트 키 발급 가능)
-- [ ] 개발자센터 → API 키 → **결제위젯 연동 키**(test_gck_… / test_gsk_…)를 `.env.local` 에
-  - `NEXT_PUBLIC_TOSS_CLIENT_KEY`, `TOSS_SECRET_KEY`
-  - `test_` 로 시작하지 않으면 앱이 일부러 시작을 거부합니다(실키 실수 방지)
-  - [미확인] 결제위젯 v2 SDK(2.10.0)에서 "API 개별 연동 키"가 아닌 "결제위젯 연동 키"가 필요한 점은 공식 문서 기준이나, 키 이름은 콘솔에서 확인
-- [ ] `pnpm dev` → 주문 → 결제 화면에 토스 위젯이 뜨는지 → 테스트 카드로 결제 → 성공 화면 → 관리자에서 결제 완료 확인
-- [ ] 결제위젯 어드민에서 결제수단 UI(variantKey "DEFAULT") 확인
-- [ ] **웹훅 등록** (배포 후): 개발자센터 → 웹훅 → `https://<사이트>/api/payments/toss/webhook`, 이벤트 `PAYMENT_STATUS_CHANGED`
-  - [미확인] 테스트 모드에서도 웹훅이 실제로 발송되는지. 안 와도 결제 흐름은 성공 리다이렉트로 완료됩니다(웹훅은 보조 안전망)
-  - 웹훅 본문은 믿지 않고 토스 API 로 상태를 다시 조회하므로 별도 서명 검증은 없습니다
-- [ ] [미확인] 토스 결제창을 Playwright 로 자동화하는 것은 하지 않았습니다. E2E 는 모의 결제로 검사합니다
+- [ ] 데모 계정 2개(관리자·고객) 만들기. 프로젝트 폴더 터미널에서:
+
+  ```powershell
+  pnpm db:demo-users
+  ```
+
+  - **뜻:** Supabase 에 로그인 화면의 "이 계정으로 채우기"용 계정 2개를 만들고, 관리자 계정에 관리자 권한을 줍니다.
+  - **정상:** 두 계정을 만들었다는 안내가 나옵니다. 이미 있으면 있다고 나옵니다.
+
+- [ ] 코드 쪽 DB 설명서를 실제 모양으로 다시 만들기: `pnpm db:types` → `pnpm typecheck` (방법 B 의 CLI 가 필요합니다. 어려우면 저에게 맡기세요)
+  - 지금 설명서(`src/types/supabase.ts`)는 제가 손으로 쓴 것이라 실제와 조금 다를 수 있습니다
+- [ ] `pnpm dev` 로 켜고 로그인 → 장바구니 → 주문 → 모의 결제까지 해 본 뒤, Supabase **Table Editor → orders** 에 주문 한 줄이 생겼는지 확인
+  - 쇼핑몰을 껐다 켜도 주문이 남아 있으면 성공입니다
+- [ ] http://localhost:3000/api/health 를 열어 `"backend":"supabase"` 인지 확인 (`"memory"` 면 아직 데모 모드 → `.env.local` 값과 재시작 확인)
+
+### 2-4. 이미지 업로드·실시간 알림
+
+- [ ] 관리자 → 상품 수정 → 파일 선택으로 이미지 올려 보기
+  - [미확인] 무료 플랜에서 끊겨도 이어 올리기(tus) 방식 업로드가 되는지. 안 되면 "이미지 주소" 입력으로 대신할 수 있습니다
+  - 올린 이미지가 화면에 안 보이면 저에게 알려 주세요(`next.config.ts` 의 허용 주소 설정 문제일 가능성)
+- [ ] 관리자 대시보드를 열어 둔 채, **다른 브라우저(또는 시크릿 창)**에서 고객으로 주문 → 대시보드에 "새 주문" 알림이 뜨는지
+  - [미확인] 실시간 알림에도 보안 규칙(RLS)이 적용되어 관리자만 받는지. 고객 계정으로는 남의 주문 알림이 오지 않는지 확인 권장
+
+### 2-5. 예약 작업 (자동으로 정해진 시간마다 하는 일)
+
+- [ ] **5분마다 "30분 지난 결제 대기 주문 취소"**: 2-2 의 두 번째 파일이 켭니다. 따로 할 일 없음
+- [ ] **10분마다 "실패한 메일 다시 보내기"**: 배포(9단계) 후에 켭니다. `20261122000002_cron_queues.sql` 맨 아래 주석의 안내대로, Supabase **Vault**(비밀 보관함)에 `site_url`, `cron_secret` 을 넣고 주석 처리된 부분을 실행
+  - 어렵다면 저에게 맡기세요. 대안으로 Upstash QStash 로 같은 일을 할 수 있습니다
+- [ ] 7일 무사용 시 잠드는 것 방지: 1단계의 `SITE_URL` 시크릿을 넣으면 해결
+  - [미확인] Supabase 가 무엇을 "사용"으로 세는지 공식 기준. 매일 `/api/health` 가 DB 를 한 번 읽게 해 두었습니다
+
+## 3. 토스페이먼츠 (카드 결제, 테스트 모드만)
+
+**토스페이먼츠 란:** 카드 결제를 처리해 주는 서비스입니다. **테스트 키**는 사업자 등록 없이 받을 수 있고, 진짜 돈이 오가지 않습니다.
+
+- [ ] developers.tosspayments.com 가입
+- [ ] 개발자센터 → **API 키** → **결제위젯 연동 키** 두 개를 `.env.local` 에
+
+  | `.env.local` 이름             | 값 모양      | 종류     |
+  | ----------------------------- | ------------ | -------- |
+  | `NEXT_PUBLIC_TOSS_CLIENT_KEY` | `test_gck_…` | 공개     |
+  | `TOSS_SECRET_KEY`             | `test_gsk_…` | **비밀** |
+  - **`test_` 로 시작하지 않는 키를 넣으면 쇼핑몰이 일부러 켜지지 않습니다.** 실제 결제 키를 실수로 넣는 것을 막는 장치입니다.
+  - "API 개별 연동 키"가 아니라 **"결제위젯 연동 키"**를 쓰세요. [미확인] 콘솔의 정확한 메뉴 이름은 화면에서 확인
+
+- [ ] 쇼핑몰을 다시 켜고(Ctrl+C → `pnpm dev`) 주문 → 결제 화면에 **토스 결제 화면**이 뜨는지 → 테스트 카드로 결제 → 결제 완료 화면 → 관리자 화면에서 "결제 완료" 확인
+  - 테스트 카드 번호는 토스 개발자 문서에 공개되어 있습니다. 진짜 카드 정보를 넣지 마세요
+- [ ] 결제위젯 관리 화면에서 결제 수단 화면 설정(variantKey "DEFAULT") 확인
+- [ ] (배포 후) **웹훅 등록**: 개발자센터 → 웹훅 → 주소 `https://<배포 주소>/api/payments/toss/webhook`, 이벤트 `PAYMENT_STATUS_CHANGED`
+  - **웹훅 이란:** 토스가 "결제 상태가 바뀌었어"라고 우리 서버에 먼저 알려 주는 연락입니다. 결제 완료 처리는 이것 없이도 되고, 이건 놓친 경우를 대비한 보조 안전망입니다
+  - [미확인] 테스트 모드에서도 웹훅이 실제로 오는지
+  - 알림 내용은 믿지 않고 토스에 상태를 다시 물어보므로, 별도 서명 확인은 하지 않습니다
+- [ ] [미확인] 토스 결제창을 자동 검사(E2E)로 누르는 것은 하지 않았습니다. 자동 검사는 모의 결제로 합니다
 
 ## 4. Resend (주문 확인 메일)
 
-- [ ] resend.com 가입 → API Keys → `RESEND_API_KEY`
-- [ ] `EMAIL_FROM=chanhee-mall <onboarding@resend.dev>`, `EMAIL_DEV_REDIRECT_TO=<가입한 본인 메일>`
-  - [미확인] 도메인 인증 전에는 가입한 본인 주소로만 보낼 수 있다고 알려져 있어, 모든 메일을 `EMAIL_DEV_REDIRECT_TO` 로 돌려보내게 해 두었습니다
-- [ ] (선택) 도메인이 생기면 Domains 에서 인증 → `EMAIL_FROM` 바꾸고 `EMAIL_DEV_REDIRECT_TO` 비우기
-- [ ] 결제 완료 후 메일 도착 확인. 실패한 메일은 pgmq 큐에 쌓였다가 재시도(2단계 예약 작업 설정 필요)
+**Resend 란:** 메일을 대신 보내 주는 서비스입니다. 붙이면 결제 완료·취소 때 손님에게 메일이 갑니다.
 
-## 5. Upstash Redis (레이트 리밋·캐시)
+- [ ] resend.com 가입 → **API Keys** → Create → 값을 `.env.local` 의 `RESEND_API_KEY` 에 (**비밀**)
+- [ ] `.env.local` 에서
+  - `EMAIL_FROM=chanhee-mall <onboarding@resend.dev>` (보내는 사람. 이미 적혀 있음)
+  - `EMAIL_DEV_REDIRECT_TO=<가입한 내 메일 주소>`
+  - [미확인] 내 도메인을 인증하기 전에는 **가입한 본인 주소로만** 보낼 수 있다고 알려져 있어서, 모든 메일을 `EMAIL_DEV_REDIRECT_TO` 로 돌려보내게 해 두었습니다
+- [ ] (선택) 도메인이 생기면 Resend **Domains** 에서 인증 → `EMAIL_FROM` 을 내 도메인 주소로 바꾸고 `EMAIL_DEV_REDIRECT_TO` 는 비우기
+- [ ] 주문·결제 후 메일이 오는지 확인. 실패한 메일은 대기열에 쌓였다가 다시 보냅니다(2-5 예약 작업 필요)
 
-- [ ] upstash.com 가입 → Redis 데이터베이스 생성(리전: 서울에 가까운 곳, 예: ap-northeast-1)
-- [ ] REST API 의 `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
-  - [미확인] 무료 한도(일 요청 수 등)는 현재 요금표 확인
-- [ ] 로그인 연속 실패 시 "요청이 너무 많습니다"가 뜨는지 확인
+## 5. Upstash Redis (반복 요청 막기)
 
-## 6. Sentry (에러 추적)
+**Upstash Redis 란:** 아주 빠른 임시 메모장 서비스입니다. "1분에 로그인 10번 이상" 같은 반복 요청을 세어서 막는 데 씁니다. 없으면 쇼핑몰 자체 메모리로 대신하는데, 배포 환경에서는 서버가 여러 대로 나뉘어 정확하지 않을 수 있어 붙이는 것을 권합니다.
 
-- [ ] sentry.io 가입 → 프로젝트 생성(Next.js) → `NEXT_PUBLIC_SENTRY_DSN`
-- [ ] 소스맵 업로드용(Vercel 에만): `SENTRY_AUTH_TOKEN`, `SENTRY_ORG`, `SENTRY_PROJECT`
-  - [미확인] @sentry/nextjs 11.16 의 Next 16.4 공식 지원 범위. 빌드는 통과했지만 실제 이벤트 전송은 키를 넣고 확인 필요
-- [ ] 개인정보 보호: 요청 본문·쿠키·사용자 이메일은 보내지 않도록 이미 걸러 둠
+- [ ] upstash.com 가입 → Redis 데이터베이스 만들기 (Region: 서울과 가까운 곳, 예: `ap-northeast-1` 도쿄)
+- [ ] **REST API** 칸의 두 값을 `.env.local` 에
+  - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (**비밀**)
+  - [미확인] 무료 한도(하루 요청 수 등)는 현재 요금표 확인
+- [ ] 로그인을 일부러 여러 번 틀려서 "요청이 너무 많습니다" 안내가 뜨는지 확인
+
+## 6. Sentry (오류 자동 수집)
+
+**Sentry 란:** 인터넷에 올린 쇼핑몰에서 오류가 나면 **자동으로 모아서 알려 주는** 서비스입니다. 손님이 오류를 겪어도 우리에게 말해 주지 않으니, 이게 있어야 문제를 알 수 있습니다. ([운영 장애 대응 안내](INCIDENT_GUIDE.md) 참고)
+
+- [ ] sentry.io 가입 → 프로젝트 만들기(플랫폼 Next.js) → **DSN** 값을 `NEXT_PUBLIC_SENTRY_DSN` 에
+- [ ] 오류 위치를 정확히 보여 주기 위한 값(**Vercel 에만** 넣음): `SENTRY_AUTH_TOKEN`(**비밀**), `SENTRY_ORG`, `SENTRY_PROJECT`
+  - [미확인] Sentry 11.16 이 Next.js 16.4 를 공식 지원하는 범위. 빌드는 통과했지만 실제 오류 전송은 키를 넣고 확인 필요
+- [ ] 개인정보 보호: 요청 내용·쿠키·손님 이메일은 Sentry 로 보내지 않도록 이미 걸러 두었습니다
 
 ## 7. GA4 (방문·구매 분석)
 
-- [ ] analytics.google.com → 속성 만들기 → 웹 스트림 → 측정 ID(G-…) → `NEXT_PUBLIC_GA_ID`
-- [ ] 결제 완료 시 `purchase` 이벤트가 실시간 보고서에 보이는지 확인
+**GA4 란:** 구글 애널리틱스입니다. 하루 방문자 수, 많이 본 상품, 구매 수를 셉니다.
 
-## 8. 운영 비밀값
+- [ ] analytics.google.com → 속성 만들기 → 데이터 스트림(웹) → **측정 ID**(`G-…`)를 `NEXT_PUBLIC_GA_ID` 에
+- [ ] 결제를 한 번 해 보고, GA4 **실시간 보고서**에 `purchase`(구매) 이벤트가 보이는지 확인
 
-- [ ] `CRON_SECRET`: 32자 이상 무작위 (0단계 명령으로 생성). 예약 작업 API 호출에 사용
-- [ ] `SESSION_SECRET`: Supabase 모드에서는 안 쓰지만 데모 모드로 배포할 때 필수
+## 8. 운영용 비밀값
 
-## 9. Vercel 배포
+둘 다 0-3 의 무작위 문자열 명령으로 만들 수 있습니다(실행할 때마다 다른 값).
 
-- [ ] vercel.com 에 GitHub 로 가입 → Add New Project → 1단계 저장소 선택 (Framework: Next.js 자동 인식)
-- [ ] Settings → General → **Node.js Version 26.x**
-  - [미확인] Vercel 이 Node 26 을 지금 지원하는지. 없으면 24.x 로 두세요(코드는 24 에서 검증됨)
-- [ ] Settings → Environment Variables 에 `.env.local` 값 전부 + `NEXT_PUBLIC_SITE_URL=https://<배포 주소>`
-  - `DISABLE_RATE_LIMIT` 은 넣지 마세요
-- [ ] 배포 → `https://<배포 주소>/api/health` 가 `{"ok":true,"backend":"supabase"}` 인지 확인
-- [ ] 1단계 `SITE_URL` 시크릿, 3단계 토스 웹훅, 2단계 메일 재시도 예약 작업 설정
-- [ ] main 에 푸시하면 자동 배포(CD), PR 마다 미리보기 배포
-- [ ] [미확인] Vercel Hobby 는 개인·비상업용 조건입니다. 학습용 데모로만 쓰세요
+- [ ] `CRON_SECRET`: 예약 작업이 우리 서버를 부를 때 쓰는 **암호**. 이걸 모르는 사람은 예약 작업 주소를 불러도 거절됩니다. 32자 이상
+- [ ] `SESSION_SECRET`: Supabase 를 붙이면 쓰지 않지만, 데모 모드로 배포한다면 필수
+
+## 9. Vercel 배포 (인터넷에 올리기)
+
+**Vercel 이란:** 쇼핑몰을 인터넷에 올려 누구나 접속할 수 있게 해 주는 서비스입니다. GitHub 에 코드를 올릴 때마다 자동으로 새 버전을 배포합니다. 배포하면 `https://chanhee-mall-….vercel.app` 같은 주소가 생깁니다.
+
+- [ ] vercel.com 에 **GitHub 계정으로** 가입 → **Add New → Project** → 1단계 저장소 선택 → Framework 는 Next.js 로 자동 인식됨
+- [ ] 프로젝트 **Settings → General → Node.js Version → 26.x**
+  - [미확인] Vercel 이 Node 26 을 지금 지원하는지. 목록에 없으면 **24.x** 로 두세요(24 로 검사를 통과했습니다)
+- [ ] **Settings → Environment Variables** 에 `.env.local` 의 값을 **전부** 같은 이름으로 입력 + `NEXT_PUBLIC_SITE_URL=https://<배포 주소>`
+  - `DISABLE_RATE_LIMIT` 은 넣지 마세요 (자동 검사 전용 설정입니다)
+  - 값을 바꾼 뒤에는 **Deployments → 최신 배포 → ⋯ → Redeploy** 를 해야 반영됩니다
+- [ ] 배포 후 `https://<배포 주소>/api/health` 를 열어 `{"ok":true,"backend":"supabase", …}` 인지 확인
+- [ ] 남은 연결: 1단계 `SITE_URL` 시크릿, 3단계 토스 웹훅, 2-5 메일 재시도 예약 작업
+- [ ] 이후에는 GitHub `main` 에 올리면 **자동 배포**, 변경 요청(PR)마다 **미리보기 주소**가 생깁니다
+- [ ] [미확인] Vercel 무료(Hobby) 플랜은 **개인·비상업용**만 허용합니다. 학습용 데모로만 쓰세요
 
 ## 10. 배포 후 보안 마무리
 
-- [ ] **CSP 를 "보고만" → "실제 차단"으로 전환**: 며칠 써 보며 Vercel 로그에서 `[csp-report]` 위반이 없으면 `CSP_ENFORCE=1`
-  - 위반이 있으면 `next.config.ts` 의 허용 목록에 해당 주소 추가
-  - [미확인] Next.js 와 토스·다음 우편번호 스크립트가 `'unsafe-inline'` 없이 동작하는지. 지금은 script-src 에 `'unsafe-inline'` 을 허용해 둠(nonce 방식은 정적 미리 렌더를 포기해야 함)
-- [ ] [미확인] Vercel 이 HSTS 를 자체적으로 붙이는지. 앱에서도 `Strict-Transport-Security` 를 보냄
-- [ ] Supabase → Advisors(Security/Performance) 경고 확인
-- [ ] 관리자 데모 계정 비밀번호는 공개되어 있으니(데모용), 실제 데이터를 넣는다면 반드시 바꾸고 로그인 화면의 데모 안내를 끄세요(`src/app/[locale]/login/page.tsx`)
+- [ ] **CSP(허락한 프로그램만 실행되게 하는 보안 규칙)를 "보고만" → "실제 차단"으로 바꾸기**
+  - 지금은 규칙 위반을 막지 않고 기록만 합니다. 며칠 써 보며 Vercel **Logs** 에서 `[csp-report]` 기록이 없으면, Vercel 환경변수에 `CSP_ENFORCE=1` 추가 → Redeploy
+  - 기록이 있으면 저에게 보내 주세요. 허용 목록(`next.config.ts`)에 주소를 추가하겠습니다
+  - [미확인] Next.js·토스·다음 우편번호가 `'unsafe-inline'`(페이지 안에 직접 쓴 스크립트 허용) 없이 동작하는지. 지금은 허용해 두었습니다
+- [ ] [미확인] Vercel 이 HSTS(항상 자물쇠 주소로만 접속)를 자체적으로 붙이는지. 쇼핑몰도 직접 보내고 있습니다
+- [ ] Supabase **Advisors → Security / Performance** 의 경고 확인 (있으면 캡처해서 보내 주세요)
+- [ ] **데모 관리자 계정 비밀번호는 공개되어 있습니다**(로그인 화면의 채우기 버튼). 실제 데이터를 넣는다면 반드시 바꾸고, 로그인 화면의 데모 안내도 끄세요(`src/app/[locale]/login/page.tsx`). 저에게 맡겨도 됩니다
 
 ---
 
 ## 확인하지 못한 기술 사항 모음 [미확인]
 
-스택 결정 문서의 [미확인] 항목과 구현 중 생긴 항목입니다.
+기술 결정 문서와 만드는 중에 생긴 [미확인] 항목을 모았습니다. 대부분 개발자용이라, "확인 방법"이 단계 번호인 것만 위 체크리스트를 따라가면 됩니다.
 
-| 항목                                                   | 현재 처리                                        | 확인 방법         |
+| 항목                                                   | 지금 어떻게 해 두었나                            | 확인 방법         |
 | ------------------------------------------------------ | ------------------------------------------------ | ----------------- |
 | pnpm 12 의 `minimumReleaseAge`·`allowBuilds` 설정 이름 | `pnpm-workspace.yaml` 에 적용, 설치 시 경고 없음 | pnpm 공식 문서    |
 | Zustand 5.1                                            | 설치·동작 확인                                   | -                 |
 | Postgres 메이저 버전                                   | 특정 버전 기능 안 씀                             | Supabase 대시보드 |
-| Supabase 무료 플랜 tus 업로드                          | 코드 완료, 주소 입력 대체 있음                   | 2단계             |
-| Supabase 무료 플랜 pg_cron·pgmq·pg_net                 | 마이그레이션 작성                                | 2단계             |
-| Realtime 에 RLS 적용                                   | 관리자만 전체 주문 보이게 정책 작성              | 2단계             |
-| `products` 검색이 trgm 인덱스를 타는지                 | `name_ko`·`name_en` 각각 ILIKE                   | `explain analyze` |
-| 토스 SDK 2.10.0 / 테스트 웹훅 / 결제창 자동화          | 모의 결제로 E2E                                  | 3단계             |
+| Supabase 무료 플랜 이어 올리기(tus) 업로드             | 코드 완료, 이미지 주소 입력으로 대체 가능        | 2-4               |
+| Supabase 무료 플랜 pg_cron·pgmq·pg_net                 | 설계도 작성 완료                                 | 2-2, 2-5          |
+| 실시간 알림에 RLS 적용                                 | 관리자만 전체 주문을 받게 규칙 작성              | 2-4               |
+| 상품 검색이 빠른 색인(trgm)을 타는지                   | 한국어·영어 이름 각각 검색                       | 개발자 확인       |
+| 토스 SDK 2.10.0 / 테스트 웹훅 / 결제창 자동 검사       | 모의 결제로 자동 검사                            | 3단계             |
 | 다음 우편번호: 키 없이 사용                            | 키 없이 연동                                     | 배포 후 확인      |
-| Resend 도메인 없이 발송 범위                           | 본인 주소로 돌려보내기                           | 4단계             |
+| Resend 도메인 없이 보낼 수 있는 범위                   | 본인 주소로 돌려보내기                           | 4단계             |
 | Sentry 11 ↔ Next 16.4                                  | 빌드 통과                                        | 6단계             |
-| Upstash 무료 한도                                      | 메모리 대체 있음                                 | 5단계             |
-| ESLint 10                                              | Next 기본 설정 그대로, 린트 통과                 | -                 |
-| next-intl 4.15 ↔ Next 16.4                             | 빌드·E2E 통과                                    | -                 |
-| GitHub Actions 무료 분량·SHA 고정                      | 메이저 태그                                      | 1단계             |
-| `unsafe-inline`·Vercel HSTS                            | Report-Only 로 시작                              | 10단계            |
-| React 버전                                             | 스택 문서는 19.2, Next 16.4.6 기본 설치는 19.3.0 | 문제 없으면 유지  |
-| Node 26                                                | 로컬은 24.22.1 로 검증                           | 0·9단계           |
+| Upstash 무료 한도                                      | 메모리로 대체 가능                               | 5단계             |
+| ESLint 10                                              | Next 기본 설정 그대로, 검사 통과                 | -                 |
+| next-intl 4.15 ↔ Next 16.4                             | 빌드·브라우저 검사 통과                          | -                 |
+| GitHub Actions 무료 분량·SHA 고정                      | 큰 버전 태그 사용                                | 1단계             |
+| `unsafe-inline`·Vercel HSTS                            | "보고만" 모드로 시작                             | 10단계            |
+| React 버전                                             | 결정 문서는 19.2, 실제 설치는 19.3.0             | 문제 없으면 유지  |
+| Node 26                                                | 이 PC 는 24.22.1 로 검사                         | 0·9단계           |
 
-## 이미 검증한 것 (데모 모드, 로컬)
+## 이미 확인한 것 (데모 모드, 이 PC)
 
-- `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm build` 통과
-- 단위 테스트 20개: 가격·배송비, 입력 검증, 재고 차감/부족/전부-아니면-전무, 중복 결제 방지, 취소·만료 시 재고 복구, 번역 키 일치, 환경변수(실키 거부)
-- E2E 4개: 손님 담기 → 로그인(장바구니 합치기) → 배송지 → 모의 결제 → 성공 → 주문 취소 / 관리자 송장 입력 → 배송중 / 고객의 관리자 화면 접근 차단 / 영어 화면 검색
+- 코드 검사(`lint`), 줄 맞춤(`format:check`), 데이터 모양 검사(`typecheck`), 운영용 포장(`build`) 모두 통과
+- 규칙 검사 20개: 가격·배송비, 입력 검사, 재고 차감·부족·전부 아니면 전무, 중복 결제 방지, 취소·만료 때 재고 복구, 번역 빠짐 없음, 실제 결제 키 거부
+- 브라우저 자동 검사 4개: 손님 담기 → 로그인(장바구니 합치기) → 배송지 → 모의 결제 → 완료 → 주문 취소 / 관리자 송장 입력 → 배송중 / 고객의 관리자 화면 접근 차단 / 영어 화면 검색
