@@ -16,6 +16,8 @@ export function LocaleSwitcher({ label }: { label: string }) {
       onClick={() => {
         const { pathname, search } = window.location;
         const rest = pathname.replace(/^\/(ko|en)(?=\/|$)/, "");
+        // 언어가 바뀌면 레이아웃 전체(html lang, 메시지)를 새로 받아야 하므로 전체 이동
+        // eslint-disable-next-line @next/next/no-location-assign-relative-destination
         window.location.assign(`/${next}${rest}${search}`);
       }}
     >
