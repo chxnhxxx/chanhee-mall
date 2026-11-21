@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "title": "chanhee-mall",
+    "description": "30대 직장인을 위한 생활용품 데모 쇼핑몰"
+  },
+  "demo": {
+    "banner": "데모 사이트입니다. 실제 주문·결제·배송은 처리되지 않습니다. 결제는 테스트 모드입니다."
+  },
+  "nav": {
+    "home": "홈",
+    "products": "전체 상품",
+    "cart": "장바구니",
+    "orders": "주문 내역",
+    "login": "로그인",
+    "signup": "회원가입",
+    "logout": "로그아웃",
+    "admin": "관리자",
+    "searchPlaceholder": "상품 검색",
+    "language": "언어"
+  },
+  "home": {
+    "heroTitle": "바쁜 하루를 덜어주는 생활용품",
+    "heroBody": "출퇴근길, 점심시간에 빠르게 고르고 바로 결제하세요.",
+    "shopNow": "상품 보러 가기",
+    "categories": "카테고리",
+    "newArrivals": "새로 들어온 상품"
+  },
+  "product": {
+    "all": "전체",
+    "soldOut": "품절",
+    "option": "옵션",
+    "quantity": "수량",
+    "addToCart": "장바구니 담기",
+    "added": "장바구니에 담았습니다",
+    "stockLeft": "남은 수량 {count}개",
+    "shippingInfo": "배송비 3,000원 (30,000원 이상 무료배송)",
+    "refundInfo": "교환·환불: 발송 전에는 주문 상세에서 바로 취소, 발송 후에는 반품 요청을 남겨 주세요.",
+    "notFound": "상품을 찾을 수 없습니다.",
+    "empty": "조건에 맞는 상품이 없습니다.",
+    "searchResults": "'{q}' 검색 결과 {count}개",
+    "tooManyRequests": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요."
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다.",
+    "remove": "삭제",
+    "itemsAmount": "상품 금액",
+    "shippingFee": "배송비",
+    "free": "무료",
+    "total": "결제 예정 금액",
+    "checkout": "주문하기",
+    "loginToCheckout": "로그인하고 주문하기",
+    "freeShippingHint": "{amount} 더 담으면 무료배송",
+    "stockExceeded": "재고({stock}개)보다 많이 담겨 있습니다",
+    "guestNotice": "로그인하면 장바구니가 계정에 저장됩니다."
+  },
+  "checkout": {
+    "title": "주문/결제",
+    "shipping": "배송지",
+    "recipient": "받는 분",
+    "phone": "연락처",
+    "postcode": "우편번호",
+    "findAddress": "주소 찾기",
+    "address1": "주소",
+    "address2": "상세 주소",
+    "memo": "배송 메모 (선택)",
+    "summary": "주문 요약",
+    "placeOrder": "{amount} 결제하기",
+    "processing": "처리 중…",
+    "payment": "결제 수단",
+    "mockNotice": "토스페이먼츠 키가 설정되지 않아 모의 결제로 진행합니다. 실제 결제 창은 뜨지 않습니다.",
+    "mockPay": "모의 결제 승인",
+    "testNotice": "테스트 결제입니다. 실제로 돈이 빠져나가지 않습니다.",
+    "orderCreated": "주문서가 만들어졌습니다. 30분 안에 결제해 주세요.",
+    "pay": "결제하기",
+    "back": "장바구니로"
+  },
+  "result": {
+    "successTitle": "결제가 완료되었습니다",
+    "successBody": "주문번호 {orderNumber}",
+    "failTitle": "결제에 실패했습니다",
+    "failBody": "다시 시도하거나 다른 결제 수단을 선택해 주세요.",
+    "viewOrder": "주문 상세 보기",
+    "continue": "쇼핑 계속하기",
+    "retry": "다시 결제하기"
+  },
+  "orders": {
+    "title": "주문 내역",
+    "empty": "주문 내역이 없습니다.",
+    "detail": "주문 상세",
+    "orderNumber": "주문번호",
+    "orderedAt": "주문일시",
+    "status": "상태",
+    "tracking": "송장번호",
+    "shippingTo": "배송지",
+    "cancel": "주문 취소",
+    "cancelConfirm": "주문을 취소하고 환불받을까요?",
+    "cancelled": "주문이 취소되었습니다.",
+    "requestReturn": "반품 요청",
+    "returnReason": "반품 사유",
+    "returnRequested": "반품 요청이 접수되었습니다.",
+    "payNow": "결제 이어하기",
+    "expiresAt": "{time}까지 결제하지 않으면 자동 취소됩니다."
+  },
+  "status": {
+    "pending_payment": "결제 대기",
+    "paid": "결제 완료",
+    "shipping": "배송중",
+    "delivered": "배송 완료",
+    "cancelled": "취소됨",
+    "return_requested": "반품 요청",
+    "refunded": "환불 완료",
+    "expired": "자동 취소"
+  },
+  "auth": {
+    "loginTitle": "로그인",
+    "signupTitle": "회원가입",
+    "email": "이메일",
+    "password": "비밀번호",
+    "name": "이름",
+    "submitLogin": "로그인",
+    "submitSignup": "가입하기",
+    "noAccount": "계정이 없나요?",
+    "haveAccount": "이미 계정이 있나요?",
+    "demoAccounts": "데모 계정",
+    "demoHint": "데모 사이트이므로 실제 개인정보 대신 테스트 계정을 써 주세요.",
+    "useDemo": "이 계정으로 채우기",
+    "errors": {
+      "INVALID": "이메일 또는 비밀번호가 맞지 않습니다.",
+      "EXISTS": "이미 가입된 이메일입니다.",
+      "WEAK": "비밀번호가 너무 약합니다.",
+      "ERROR": "잠시 후 다시 시도해 주세요.",
+      "RATE_LIMITED": "시도가 너무 많습니다. 1분 뒤 다시 시도해 주세요."
+    }
+  },
+  "validation": {
+    "required": "필수 입력입니다.",
+    "email": "이메일 형식이 아닙니다.",
+    "passwordMin": "8자 이상 입력해 주세요.",
+    "phone": "숫자와 -만 입력해 주세요.",
+    "postcode": "주소 찾기로 우편번호를 입력해 주세요."
+  },
+  "errors": {
+    "EMPTY_CART": "장바구니가 비어 있습니다.",
+    "OUT_OF_STOCK": "재고가 부족한 상품이 있습니다.",
+    "NOT_AVAILABLE": "판매가 끝난 상품이 있습니다.",
+    "BAD_QUANTITY": "수량을 확인해 주세요.",
+    "INVALID_STATE": "지금 상태에서는 할 수 없는 작업입니다.",
+    "NOT_FOUND": "찾을 수 없습니다.",
+    "CONFLICT": "이미 처리되었습니다.",
+    "UNAUTHENTICATED": "로그인이 필요합니다.",
+    "FORBIDDEN": "권한이 없습니다.",
+    "RATE_LIMITED": "요청이 너무 많습니다. 잠시 후 다시 시도해 주세요.",
+    "AMOUNT_MISMATCH": "결제 금액이 주문 금액과 다릅니다.",
+    "TOSS_ERROR": "결제 승인 중 문제가 생겼습니다.",
+    "UNKNOWN": "알 수 없는 오류가 발생했습니다.",
+    "notFoundTitle": "페이지를 찾을 수 없습니다",
+    "errorTitle": "문제가 발생했습니다",
+    "retry": "다시 시도"
+  },
+  "footer": {
+    "terms": "이용약관",
+    "privacy": "개인정보처리방침",
+    "refund": "교환·환불 정책",
+    "business": "데모 프로젝트 · 사업자 정보 없음 (실제 판매하지 않음)"
+  },
+  "legal": {
+    "termsTitle": "이용약관",
+    "privacyTitle": "개인정보처리방침",
+    "refundTitle": "교환·환불 정책",
+    "draftNotice": "학습용 데모의 예시 문서입니다. 법률 검토를 거치지 않았으며 실제 판매에 그대로 쓸 수 없습니다."
+  }
+}

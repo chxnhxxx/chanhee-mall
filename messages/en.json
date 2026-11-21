@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "title": "chanhee-mall",
+    "description": "A demo shop of everyday goods for busy professionals"
+  },
+  "demo": {
+    "banner": "This is a demo site. No real orders, payments, or deliveries are processed. Payments run in test mode."
+  },
+  "nav": {
+    "home": "Home",
+    "products": "All products",
+    "cart": "Cart",
+    "orders": "Orders",
+    "login": "Log in",
+    "signup": "Sign up",
+    "logout": "Log out",
+    "admin": "Admin",
+    "searchPlaceholder": "Search products",
+    "language": "Language"
+  },
+  "home": {
+    "heroTitle": "Everyday goods for busy days",
+    "heroBody": "Pick quickly on your commute or lunch break and check out in seconds.",
+    "shopNow": "Shop now",
+    "categories": "Categories",
+    "newArrivals": "New arrivals"
+  },
+  "product": {
+    "all": "All",
+    "soldOut": "Sold out",
+    "option": "Option",
+    "quantity": "Quantity",
+    "addToCart": "Add to cart",
+    "added": "Added to cart",
+    "stockLeft": "{count} left",
+    "shippingInfo": "Shipping ₩3,000 (free over ₩30,000)",
+    "refundInfo": "Returns: cancel instantly from the order page before shipping, or request a return after shipping.",
+    "notFound": "Product not found.",
+    "empty": "No products match.",
+    "searchResults": "{count} results for '{q}'",
+    "tooManyRequests": "Too many requests. Please try again shortly."
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty.",
+    "remove": "Remove",
+    "itemsAmount": "Items",
+    "shippingFee": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "checkout": "Checkout",
+    "loginToCheckout": "Log in to check out",
+    "freeShippingHint": "Add {amount} more for free shipping",
+    "stockExceeded": "More than available stock ({stock})",
+    "guestNotice": "Log in to save your cart to your account."
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shipping": "Shipping address",
+    "recipient": "Recipient",
+    "phone": "Phone",
+    "postcode": "Postcode",
+    "findAddress": "Find address",
+    "address1": "Address",
+    "address2": "Address line 2",
+    "memo": "Delivery note (optional)",
+    "summary": "Order summary",
+    "placeOrder": "Pay {amount}",
+    "processing": "Processing…",
+    "payment": "Payment method",
+    "mockNotice": "Toss Payments keys are not configured, so this is a mock payment. No payment window will open.",
+    "mockPay": "Approve mock payment",
+    "testNotice": "Test payment. No money will be charged.",
+    "orderCreated": "Your order has been created. Please pay within 30 minutes.",
+    "pay": "Pay",
+    "back": "Back to cart"
+  },
+  "result": {
+    "successTitle": "Payment complete",
+    "successBody": "Order {orderNumber}",
+    "failTitle": "Payment failed",
+    "failBody": "Please try again or choose another payment method.",
+    "viewOrder": "View order",
+    "continue": "Continue shopping",
+    "retry": "Try again"
+  },
+  "orders": {
+    "title": "Orders",
+    "empty": "No orders yet.",
+    "detail": "Order details",
+    "orderNumber": "Order number",
+    "orderedAt": "Ordered at",
+    "status": "Status",
+    "tracking": "Tracking number",
+    "shippingTo": "Ship to",
+    "cancel": "Cancel order",
+    "cancelConfirm": "Cancel this order and get a refund?",
+    "cancelled": "Your order has been cancelled.",
+    "requestReturn": "Request return",
+    "returnReason": "Reason for return",
+    "returnRequested": "Your return request has been received.",
+    "payNow": "Continue payment",
+    "expiresAt": "Unpaid orders are cancelled automatically after {time}."
+  },
+  "status": {
+    "pending_payment": "Awaiting payment",
+    "paid": "Paid",
+    "shipping": "Shipping",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "return_requested": "Return requested",
+    "refunded": "Refunded",
+    "expired": "Expired"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "signupTitle": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "submitLogin": "Log in",
+    "submitSignup": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "demoAccounts": "Demo accounts",
+    "demoHint": "This is a demo. Please use a test account instead of real personal data.",
+    "useDemo": "Fill with this account",
+    "errors": {
+      "INVALID": "Incorrect email or password.",
+      "EXISTS": "This email is already registered.",
+      "WEAK": "Password is too weak.",
+      "ERROR": "Please try again later.",
+      "RATE_LIMITED": "Too many attempts. Try again in a minute."
+    }
+  },
+  "validation": {
+    "required": "Required.",
+    "email": "Invalid email.",
+    "passwordMin": "At least 8 characters.",
+    "phone": "Digits and dashes only.",
+    "postcode": "Use Find address to fill the postcode."
+  },
+  "errors": {
+    "EMPTY_CART": "Your cart is empty.",
+    "OUT_OF_STOCK": "Some items are out of stock.",
+    "NOT_AVAILABLE": "Some items are no longer available.",
+    "BAD_QUANTITY": "Please check the quantity.",
+    "INVALID_STATE": "This action is not available right now.",
+    "NOT_FOUND": "Not found.",
+    "CONFLICT": "Already processed.",
+    "UNAUTHENTICATED": "Please log in.",
+    "FORBIDDEN": "You don't have permission.",
+    "RATE_LIMITED": "Too many requests. Please try again shortly.",
+    "AMOUNT_MISMATCH": "The paid amount does not match the order.",
+    "TOSS_ERROR": "Something went wrong while approving the payment.",
+    "UNKNOWN": "An unknown error occurred.",
+    "notFoundTitle": "Page not found",
+    "errorTitle": "Something went wrong",
+    "retry": "Try again"
+  },
+  "footer": {
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "refund": "Returns policy",
+    "business": "Demo project · no business registration (not for sale)"
+  },
+  "legal": {
+    "termsTitle": "Terms of Service",
+    "privacyTitle": "Privacy Policy",
+    "refundTitle": "Returns & Refunds",
+    "draftNotice": "Sample document for a learning demo. Not legally reviewed and not for real commerce."
+  }
+}

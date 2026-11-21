@@ -6,7 +6,20 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "gen:placeholders": "node scripts/gen-placeholders.ts",
+    "db:seed-sql": "node scripts/gen-seed-sql.ts",
+    "db:demo-users": "node scripts/create-demo-users.ts",
+    "db:types": "supabase gen types typescript --linked --schema public > src/types/supabase.ts",
+    "db:push": "supabase db push",
+    "audit": "pnpm audit --prod --audit-level high"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.7",
@@ -58,5 +71,9 @@
     "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^5.1.1"
   },
-  "packageManager": "pnpm@12.21.0"
+  "packageManager": "pnpm@12.21.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  }
 }
