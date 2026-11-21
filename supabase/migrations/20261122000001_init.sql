@@ -1,9 +1,14 @@
+-- [쉬운 설명] DB 설계도. 테이블(표) 만들기, 재고·주문 처리 함수, 보안 규칙(RLS: 누가 어떤 줄을 볼 수 있나), 이미지 저장소.
+-- `pnpm db:push` 로 Supabase 에 적용합니다. 위에서 아래로 차례대로 실행됩니다.
+-- 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+
 -- chanhee-mall 초기 스키마
 -- 원칙: 모든 테이블 RLS 켜기 + 서버에서도 권한 검사(이중 방어). 금액은 원 단위 정수.
 
 create extension if not exists pg_trgm;
 
 -- ───────────────────────── 프로필 (역할) ─────────────────────────
+-- ▶ 회원 정보 표: 이름, 이메일, 역할(고객/관리자). 회원가입하면 자동으로 한 줄 생김
 create table public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   email text not null,
@@ -30,6 +35,7 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- ▶ '지금 사용자가 관리자인가?'를 알려 주는 함수. 아래 보안 규칙에서 계속 쓰임
 create or replace function public.is_admin()
 returns boolean
 language sql
@@ -43,6 +49,7 @@ as $$
 $$;
 
 -- ───────────────────────── 카탈로그 ─────────────────────────
+-- ▶ 카테고리 표 (주방, 욕실 …)
 create table public.categories (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique,
@@ -51,6 +58,7 @@ create table public.categories (
   sort_order int not null default 0
 );
 
+-- ▶ 상품 표: 이름(한/영), 설명, 기본 가격, 사진, 판매 중 여부
 create table public.products (
   id uuid primary key default gen_random_uuid(),
   slug text not null unique check (slug ~ '^[a-z0-9-]{2,80}$'),
@@ -71,6 +79,7 @@ create index products_category_idx on public.products (category_id);
 create index products_name_trgm_idx on public.products
   using gin ((name_ko || ' ' || name_en) gin_trgm_ops);
 
+-- ▶ 옵션 표: 색상·용량 같은 옵션마다 추가금과 재고를 따로 관리
 create table public.product_variants (
   id uuid primary key default gen_random_uuid(),
   product_id uuid not null references public.products (id) on delete cascade,
@@ -85,6 +94,7 @@ create table public.product_variants (
 create index product_variants_product_idx on public.product_variants (product_id);
 
 -- ───────────────────────── 장바구니 (원본은 DB) ─────────────────────────
+-- ▶ 장바구니 표: 회원별로 어떤 옵션을 몇 개 담았는지
 create table public.cart_items (
   user_id uuid not null references public.profiles (id) on delete cascade,
   variant_id uuid not null references public.product_variants (id) on delete cascade,
@@ -94,6 +104,7 @@ create table public.cart_items (
 );
 
 -- ───────────────────────── 주문 ─────────────────────────
+-- ▶ 주문 표: 주문번호, 상태, 금액, 배송지, 송장, 결제 정보
 create table public.orders (
   id uuid primary key default gen_random_uuid(),
   order_number text not null unique check (order_number ~ '^[A-Za-z0-9_-]{6,64}$'),
@@ -120,6 +131,7 @@ create table public.orders (
 create index orders_user_idx on public.orders (user_id, created_at desc);
 create index orders_status_idx on public.orders (status, expires_at);
 
+-- ▶ 주문 상품 표: 주문 당시의 상품명·가격을 그대로 복사해 둠 (나중에 가격이 바뀌어도 영수증은 그대로)
 create table public.order_items (
   id uuid primary key default gen_random_uuid(),
   order_id uuid not null references public.orders (id) on delete cascade,
@@ -135,6 +147,7 @@ create table public.order_items (
 create index order_items_order_idx on public.order_items (order_id);
 
 -- 토스 승인·취소·웹훅 응답 기록 (감사 로그)
+-- ▶ 결제 기록 표: 토스와 주고받은 내용을 모두 남겨 문제가 생겼을 때 추적
 create table public.payment_events (
   id bigint generated always as identity primary key,
   order_number text not null,
@@ -167,6 +180,7 @@ $$;
 
 -- 주문 생성: 가격을 DB에서 다시 읽고, 재고를 잠그고 차감한 뒤 주문을 만든다 (한 트랜잭션)
 -- p_lines 예: [{"variant_id": "...", "quantity": 2}]
+-- ▶ ★ 주문 생성 함수: 재고를 '잠그고'(동시 구매 방지) 확인한 뒤, 전부 충분할 때만 재고를 줄이고 주문을 만듦
 create or replace function public.create_order(
   p_user_id uuid,
   p_order_number text,
@@ -239,6 +253,7 @@ end;
 $$;
 
 -- 주문 상태를 바꾸면서 재고를 되돌린다 (취소·만료·환불)
+-- ▶ 주문 닫기 함수: 취소·환불·만료 시 상태를 바꾸고 재고를 되돌림
 create or replace function public.close_order_restock(
   p_order_id uuid,
   p_from_statuses text[],
@@ -271,6 +286,7 @@ end;
 $$;
 
 -- 결제 대기 30분 초과 주문 자동 만료 + 재고 복구 (pg_cron 이 5분마다 호출)
+-- ▶ 30분 안에 결제하지 않은 주문을 한꺼번에 자동 취소
 create or replace function public.expire_pending_orders()
 returns int
 language plpgsql
@@ -294,6 +310,7 @@ end;
 $$;
 
 -- 일별 주문 수·매출 (관리자 통계)
+-- ▶ 관리자 대시보드용 일별 주문 수·매출 계산
 create or replace function public.daily_stats(p_days int default 14)
 returns table (day date, orders bigint, revenue bigint)
 language sql
@@ -313,12 +330,14 @@ as $$
 $$;
 
 -- 서버(secret key)만 호출하도록 일반 역할의 실행 권한 회수
+-- ▶ 위의 중요한 함수들은 브라우저에서 직접 부를 수 없게 막음 (우리 서버만 호출 가능)
 revoke execute on function public.create_order(uuid, text, jsonb, jsonb) from public, anon, authenticated;
 revoke execute on function public.close_order_restock(uuid, text[], text) from public, anon, authenticated;
 revoke execute on function public.expire_pending_orders() from public, anon, authenticated;
 revoke execute on function public.daily_stats(int) from public, anon, authenticated;
 
 -- ───────────────────────── RLS ─────────────────────────
+-- ▶ 보안 규칙(RLS) 켜기: 이제부터 아래 규칙에 맞는 줄만 읽고 쓸 수 있음
 alter table public.profiles enable row level security;
 alter table public.categories enable row level security;
 alter table public.products enable row level security;
@@ -364,12 +383,14 @@ create policy "variants_admin_write" on public.product_variants
   using ((select public.is_admin())) with check ((select public.is_admin()));
 
 -- 장바구니: 본인 행만
+-- ▶ 장바구니는 본인 것만
 create policy "cart_own" on public.cart_items
   for all to authenticated
   using (user_id = (select auth.uid()))
   with check (user_id = (select auth.uid()));
 
 -- 주문: 본인 또는 관리자만 조회. 생성·결제 처리는 서버(secret key)가 함수로만 수행
+-- ▶ 주문은 본인 것만 보이고, 관리자는 전부 보임
 create policy "orders_select_own_or_admin" on public.orders
   for select to authenticated
   using (user_id = (select auth.uid()) or (select public.is_admin()));
@@ -389,9 +410,11 @@ create policy "payment_events_admin_read" on public.payment_events
 
 -- ───────────────────────── Realtime (관리자 새 주문 알림) ─────────────────────────
 -- Realtime 구독에도 위 RLS 가 적용되어 관리자만 다른 사람의 주문 이벤트를 받는다 [미확인: 구축 후 실험]
+-- ▶ 새 주문을 관리자 화면에 실시간으로 알리기 위해 주문 표를 '실시간 방송' 대상에 추가
 alter publication supabase_realtime add table public.orders;
 
 -- ───────────────────────── Storage (상품 이미지) ─────────────────────────
+-- ▶ 상품 이미지 저장소: 누구나 볼 수 있고, 올리기·지우기는 관리자만
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('product-images', 'product-images', true, 5242880,
         array['image/png', 'image/jpeg', 'image/webp', 'image/avif'])

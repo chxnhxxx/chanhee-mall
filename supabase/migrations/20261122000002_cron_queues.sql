@@ -1,3 +1,6 @@
+-- [쉬운 설명] DB 예약 작업(5분마다 만료 주문 정리)과 메일 재시도 대기열(pgmq).
+-- 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+
 -- 백그라운드 작업: Supabase Cron(pg_cron) + Queues(pgmq)
 -- [미확인] 무료 플랜에서 두 확장을 켤 수 있는지 아직 확인하지 않았습니다.
 --   이 마이그레이션이 실패하면: 대시보드 Database → Extensions 에서 pg_cron, pgmq 를 켠 뒤 다시 실행하고,

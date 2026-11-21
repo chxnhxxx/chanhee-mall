@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 결제 실패 화면. 실패 이유를 알려 주고 다시 결제할 수 있게 합니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";

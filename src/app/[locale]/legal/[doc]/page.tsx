@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 이용약관·개인정보처리방침·교환환불 정책 페이지(데모용 문구).
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";

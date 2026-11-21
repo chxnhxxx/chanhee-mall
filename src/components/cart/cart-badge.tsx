@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 머리글의 장바구니 아이콘과 숫자 배지.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useSyncExternalStore } from "react";

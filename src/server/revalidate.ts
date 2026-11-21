@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품·재고가 바뀌었을 때 저장해 둔 목록(캐시)을 버리고 새로 읽게 하는 도우미.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { revalidateTag, updateTag } from "next/cache";
 import { CATALOG_TAG } from "@/server/catalog";

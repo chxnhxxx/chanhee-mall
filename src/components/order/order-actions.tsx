@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 주문 상세의 '주문 취소'(발송 전)·'반품 요청'(발송 후) 버튼.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useTranslations } from "next-intl";

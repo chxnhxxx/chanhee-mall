@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 주문 상세. 상태에 맞는 작업 버튼(발송·배송완료·반품승인)이 아래에 나옵니다.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { notFound } from "next/navigation";

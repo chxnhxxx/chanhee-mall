@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 페이지를 열 때마다 서버에서 '로그인 여부와 장바구니 개수'를 읽어 브라우저 상태에 알려 줍니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getSession } from "@/server/auth";
 import { repo } from "@/server/repo";
 import { CartHydrator } from "./cart-hydrator";

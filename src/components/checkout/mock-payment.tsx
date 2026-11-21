@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 토스 키가 없을 때 쓰는 '모의 결제' 버튼. 토스가 결제 성공 후 돌려보내는 동작을 흉내 냅니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useTranslations } from "next-intl";

@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품 상세 화면. 주소의 [slug] 자리에 상품 이름표(예: stainless-tumbler)가 들어갑니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";

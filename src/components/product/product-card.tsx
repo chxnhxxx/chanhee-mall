@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품 목록에 쓰이는 상품 카드(사진·이름·가격·품절 표시)와 로딩 중 회색 상자.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";

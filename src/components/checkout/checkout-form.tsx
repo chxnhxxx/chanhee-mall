@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 배송지 입력 양식과 '결제하기로 이동' 버튼. 주소 검색은 다음(카카오) 우편번호 팝업을 씁니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -52,6 +56,7 @@ export function CheckoutForm({ cart, defaultRecipient }: { cart: PricedCart; def
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ▶ '주소 검색' 버튼 → 다음 우편번호 팝업 → 고른 주소를 입력칸에 채움
   function openPostcode() {
     if (!window.daum?.Postcode) {
       toast.error("주소 검색을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.");
@@ -66,6 +71,7 @@ export function CheckoutForm({ cart, defaultRecipient }: { cart: PricedCart; def
     }).open();
   }
 
+  // ▶ 입력값 검사를 통과하면 서버에 주문 생성을 요청하고, 받은 주문번호의 결제 화면으로 이동
   const onSubmit = form.handleSubmit((values) => {
     start(async () => {
       const res = await placeOrderAction(values);

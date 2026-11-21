@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 입력 검사 규칙 검사: 잘못된 우편번호·전화번호·이메일을 정말 막는지.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { describe, expect, it } from "vitest";
 import { loginSchema, productFormSchema, shippingSchema, signupSchema } from "@/lib/schemas";
 

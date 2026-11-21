@@ -1,4 +1,8 @@
 /**
+ * [쉬운 설명] 상품 사진 대신 쓸 임시 그림(SVG) 24장을 public/products 에 만드는 도구. `pnpm gen:placeholders`.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * 상품 이미지 자리표시 SVG 생성 (저작권 걱정 없는 직접 만든 이미지).
  * 실행: pnpm gen:placeholders
  */

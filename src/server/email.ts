@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 주문 확인·발송·취소 메일 보내기(Resend). 키가 없으면 메일 내용을 서버 화면(콘솔)에 출력만 합니다.
+ * 보내기 실패한 메일은 대기열에 넣어 나중에 다시 보냅니다.
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { Resend } from "resend";
 import OrderEmail, { type OrderEmailKind, subjectFor } from "@/emails/order-email";

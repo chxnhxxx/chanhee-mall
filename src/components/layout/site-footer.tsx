@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 바닥글: 이용약관·개인정보처리방침·환불정책 링크.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 

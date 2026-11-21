@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 모든 페이지를 감싸는 공통 틀: 데모 배너, 머리글(헤더), 본문, 바닥글, 알림창, 분석 도구.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 import { notFound } from "next/navigation";

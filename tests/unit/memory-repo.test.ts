@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 재고·주문 규칙 검사: 재고 부족, 중복 결제 방지, 취소·만료 시 재고 복구 등.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { beforeEach, describe, expect, it } from "vitest";
 import type { ShippingAddress } from "@/lib/domain";
 import { createMemoryRepo, resetMemoryDb } from "@/server/repo/memory";

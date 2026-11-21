@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 주문 목록. 위쪽 버튼으로 상태별(결제 완료, 반품 요청 등) 걸러 보기.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/order/status-badge";

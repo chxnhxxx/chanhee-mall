@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 홈 화면: 소개 문구, 카테고리 바로가기, 새로 들어온 상품.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ProductGrid } from "@/components/product/product-card";
 import { Button } from "@/components/ui/button";

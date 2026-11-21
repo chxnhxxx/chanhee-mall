@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 브라우저가 기억하는 장바구니 상태(Zustand).
+ * 로그인 안 한 손님: 담은 목록을 브라우저에 저장. 로그인 사용자: 진짜 장바구니는 DB 에 있고 여기엔 '개수'만 둡니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { create } from "zustand";
@@ -22,6 +27,7 @@ type CartState = {
   clearGuest: () => void;
 };
 
+// ▶ 장바구니 상태 보관함. persist = 브라우저를 닫았다 열어도 손님 장바구니가 남도록 저장
 export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
@@ -60,5 +66,6 @@ export const useCartStore = create<CartState>()(
   ),
 );
 
+// ▶ 머리글 배지에 보여 줄 숫자: 로그인 사용자는 DB 개수, 손님은 브라우저에 담은 개수의 합
 export const selectCartCount = (s: CartState) =>
   s.mode === "user" ? s.userCount : s.guestLines.reduce((sum, l) => sum + l.quantity, 0);

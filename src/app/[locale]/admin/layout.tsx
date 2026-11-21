@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 화면 공통 틀: 상단 메뉴(대시보드·상품·주문).
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";

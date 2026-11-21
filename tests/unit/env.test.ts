@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 환경변수 검사: 키가 없으면 데모 모드, 토스 실서비스 키(live_)는 거부.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 async function loadEnv(vars: Record<string, string>) {

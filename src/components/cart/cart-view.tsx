@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 장바구니 목록·수량 조절·합계·'주문하기' 버튼. 가격은 언제나 서버가 계산한 값을 보여줍니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import Image from "next/image";

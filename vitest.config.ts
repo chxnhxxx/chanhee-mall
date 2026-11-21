@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 단위 테스트 도구(Vitest) 설정. `pnpm test` 가 tests/unit 폴더의 검사들을 이 설정으로 돌립니다.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { fileURLToPath } from "node:url";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";

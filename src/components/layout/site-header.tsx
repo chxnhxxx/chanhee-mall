@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 머리글: 로고, 검색창, 언어 전환, 로그인/주문내역, 장바구니 개수, 카테고리 메뉴.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { CartBadge } from "@/components/cart/cart-badge";

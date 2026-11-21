@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 사이트 상태 확인 주소(/api/health). DB 를 한 번 읽어 보고 정상이면 ok 를 돌려줍니다.
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { connection, NextResponse } from "next/server";
 import { repo } from "@/server/repo";
 

@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 서버 액션의 결과 형식 통일: 성공이면 {ok:true, data}, 실패면 {ok:false, code}.
+ * 실패 이유는 '코드'로만 화면에 전달하고, 내부 오류 내용은 숨긴 채 Sentry 로 보냅니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import * as Sentry from "@sentry/nextjs";
 import { AuthError } from "@/server/auth";

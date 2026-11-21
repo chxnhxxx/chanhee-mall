@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 토스페이먼츠 서버와 대화하는 코드: 결제 승인, 취소(환불), 결제 조회.
+ * 토스 키가 없으면 실제로 통신하지 않고 '성공했다고 치는' 모의 결제로 동작합니다.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { env, features } from "@/env";
 
@@ -37,10 +42,12 @@ export class TossError extends Error {
 export const MOCK_PAYMENT_KEY_PREFIX = "mock_";
 export const isMockMode = () => !features.toss;
 
+// ▶ 토스 서버에 '우리 가게가 맞다'는 증명(시크릿 키)을 붙이는 방법
 function authHeader() {
   return `Basic ${Buffer.from(`${env.TOSS_SECRET_KEY}:`).toString("base64")}`;
 }
 
+// ▶ 토스 서버에 실제로 요청을 보내는 공통 함수. 15초 안에 답이 없으면 포기합니다.
 async function call<T>(path: string, init: RequestInit & { idempotencyKey?: string } = {}): Promise<T> {
   const res = await fetch(`${BASE}${path}`, {
     ...init,
@@ -58,6 +65,7 @@ async function call<T>(path: string, init: RequestInit & { idempotencyKey?: stri
   return body;
 }
 
+// ▶ 결제 승인 요청. 모의 모드에서는 토스에 연락하지 않고 '승인됨'이라고 흉내 냅니다.
 export async function confirmPayment(input: {
   paymentKey: string;
   orderId: string;
@@ -82,6 +90,7 @@ export async function confirmPayment(input: {
   });
 }
 
+// ▶ 결제 취소(환불) 요청
 export async function cancelPayment(input: {
   paymentKey: string;
   reason: string;
@@ -97,6 +106,7 @@ export async function cancelPayment(input: {
   });
 }
 
+// ▶ 결제 상태 조회 (웹훅이 왔을 때 사실인지 확인용)
 export async function getPayment(paymentKey: string): Promise<TossPayment> {
   if (isMockMode()) throw new TossError("MOCK", "모의 모드에서는 조회 불가", 400);
   return call<TossPayment>(`/v1/payments/${encodeURIComponent(paymentKey)}`, { method: "GET" });

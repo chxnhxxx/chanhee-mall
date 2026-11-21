@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] GA4(구글 애널리틱스)로 '결제 시작', '구매 완료' 같은 사건을 보내는 함수. 측정 ID 가 없으면 아무것도 안 보냅니다.
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { sendGAEvent } from "@next/third-parties/google";

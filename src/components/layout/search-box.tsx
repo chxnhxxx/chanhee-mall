@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 머리글의 상품 검색창. 입력 후 엔터를 누르면 상품 목록 페이지로 검색어를 넘깁니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { SearchIcon } from "lucide-react";

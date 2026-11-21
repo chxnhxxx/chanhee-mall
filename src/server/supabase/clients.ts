@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] Supabase 에 접속하는 '열쇠' 3종류: 손님용(공개), 로그인 사용자용, 서버 전용 마스터키(비밀).
+ * 마스터키는 보안 규칙을 건너뛰므로 주문 생성·결제처럼 서버만 해야 하는 일에만 씁니다.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { createServerClient } from "@supabase/ssr";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";

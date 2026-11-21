@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 한국어·영어 번역 파일에 빠진 문장이 없는지 검사.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { describe, expect, it } from "vitest";
 import en from "../../messages/en.json";
 import ko from "../../messages/ko.json";

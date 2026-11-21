@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 로그인·회원가입·로그아웃과 '지금 누가 로그인했나' 확인.
+ * Supabase 모드에서는 Supabase Auth 를, 데모 모드에서는 서명된 쿠키(위조 불가 출입증)를 씁니다.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { createHmac, scryptSync, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
@@ -34,6 +39,7 @@ function sign(payload: string) {
   return createHmac("sha256", sessionSecret).update(payload).digest("base64url");
 }
 
+// ▶ (데모 모드) 로그인 성공 시 '출입증' 쿠키를 발급. 서명이 붙어 있어 사용자가 내용을 바꾸면 무효가 됩니다.
 async function writeMemSession(userId: string) {
   const payload = Buffer.from(JSON.stringify({ uid: userId, exp: Date.now() + MAX_AGE * 1000 })).toString("base64url");
   (await cookies()).set(COOKIE, `${payload}.${sign(payload)}`, {
@@ -45,6 +51,7 @@ async function writeMemSession(userId: string) {
   });
 }
 
+// ▶ (데모 모드) 출입증 쿠키를 읽고 서명과 유효기간을 확인
 async function readMemSession(): Promise<string | null> {
   const raw = (await cookies()).get(COOKIE)?.value;
   if (!raw) return null;
@@ -66,6 +73,7 @@ async function readMemSession(): Promise<string | null> {
 
 /* ─────────────── 공개 함수 ─────────────── */
 
+// ▶ 지금 이 요청을 보낸 사람이 누구인지(로그인 사용자 정보) 알려 주는 함수. 대부분의 화면·버튼이 이것부터 부릅니다.
 /** 현재 로그인 사용자. 요청 1회 안에서는 결과를 재사용(react cache) */
 export const getSession = cache(async (): Promise<Session | null> => {
   let userId: string | null;
@@ -83,6 +91,7 @@ export const getSession = cache(async (): Promise<Session | null> => {
   return { userId: profile.id, email: profile.email, name: profile.name, role: profile.role };
 });
 
+// ▶ 이메일·비밀번호 확인. 데모 모드에서는 비밀번호를 그대로 저장하지 않고 '복원할 수 없는 지문(해시)'으로 비교합니다.
 export async function signIn(email: string, password: string): Promise<AuthResult> {
   if (features.supabase) {
     const supabase = await userClient();
@@ -145,6 +154,7 @@ export async function requireUser(): Promise<Session> {
   return s;
 }
 
+// ▶ 관리자만 할 수 있는 일 앞에서 부르는 문지기. 관리자가 아니면 오류로 멈춥니다.
 export async function requireAdmin(): Promise<Session> {
   const s = await requireUser();
   if (s.role !== "admin") throw new AuthError("FORBIDDEN");

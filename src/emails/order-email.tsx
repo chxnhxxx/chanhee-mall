@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 주문 메일의 디자인(React Email). 결제 완료·발송·취소·환불 메일이 이 틀을 함께 씁니다.
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Body, Container, Head, Heading, Hr, Html, Link, Preview, Section, Text } from "@react-email/components";
 import type { Order } from "@/lib/domain";
 import { formatKRW } from "@/lib/pricing";

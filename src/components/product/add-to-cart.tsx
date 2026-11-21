@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 상품 상세의 옵션 선택·수량·'장바구니 담기' 버튼.
+ * 손님이면 브라우저에, 로그인 사용자면 서버(DB)에 담습니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useTranslations } from "next-intl";

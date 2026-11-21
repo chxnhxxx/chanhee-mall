@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 로그아웃 버튼.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useTransition } from "react";

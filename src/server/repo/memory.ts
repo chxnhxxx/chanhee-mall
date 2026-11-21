@@ -1,4 +1,9 @@
 /**
+ * [쉬운 설명] 연습용 '메모리 DB'. 서버가 켜져 있는 동안만 데이터를 기억합니다(껐다 켜면 처음 상태).
+ * 재고 차감·취소 시 재고 복구 같은 규칙을 Supabase 의 SQL 함수와 똑같이 흉내 냅니다. 테스트도 이걸로 합니다.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * 메모리 DB: Supabase 가 연결되기 전 로컬 개발·E2E 테스트용.
  * 서버 프로세스 메모리에만 있으므로 서버를 다시 켜면 시드 상태로 돌아갑니다.
  * Supabase 의 create_order / close_order_restock SQL 함수와 같은 규칙을 JS 로 구현했습니다.
@@ -151,6 +156,7 @@ export function createMemoryRepo(): Repo {
       if (lines.length === 0) throw new RepoError("EMPTY_CART");
       if (s.orders.some((o) => o.orderNumber === orderNumber)) throw new RepoError("CONFLICT");
 
+      // ▶ 먼저 모든 줄을 검사만 합니다(판매 중인가, 수량이 1~20인가, 재고가 충분한가).
       const resolved = lines.map((l) => {
         const found = findVariant(s, l.variantId);
         if (!found || !found.product.isPublished) throw new RepoError("NOT_AVAILABLE");
@@ -160,6 +166,7 @@ export function createMemoryRepo(): Repo {
       });
 
       // 검사를 모두 통과한 뒤에 재고 차감 (SQL 트랜잭션과 같은 효과)
+      // ▶ 하나라도 실패하면 위에서 멈추므로, 여기까지 왔다면 전부 통과 → 이제서야 재고를 줄입니다.
       for (const r of resolved) r.variant.stock -= r.quantity;
 
       const totals = summarize(resolved);
@@ -251,6 +258,7 @@ export function createMemoryRepo(): Repo {
       return clone(o);
     },
 
+    // ▶ 결제 대기 30분이 지난 주문을 '자동 취소'로 바꾸고 재고를 되돌립니다.
     async expirePendingOrders() {
       const s = memoryState();
       const now = Date.now();

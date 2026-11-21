@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 화면(한국어 전용)에서 쓰는 주문 상태 이름과 날짜 표시 형식.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { OrderStatus } from "@/lib/domain";
 
 /** 관리자 화면(한국어 전용)에서 쓰는 상태 이름 */

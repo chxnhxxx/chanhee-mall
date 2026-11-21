@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] Supabase 키가 있으면 실제 DB, 없으면 메모리 DB 를 골라 주는 스위치.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { features } from "@/env";
 import { createMemoryRepo } from "./memory";

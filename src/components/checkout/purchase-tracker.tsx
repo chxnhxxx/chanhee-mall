@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 결제 완료 화면에서 GA4 에 '구매' 기록을 한 번만 보내는 부품(새로고침해도 중복 기록 안 함).
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useEffect } from "react";

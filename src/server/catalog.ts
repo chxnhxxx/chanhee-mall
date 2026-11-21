@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품·카테고리 목록 읽기. 자주 바뀌지 않으므로 결과를 잠시 저장(캐시)해 두고 빠르게 보여줍니다.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { cacheLife, cacheTag } from "next/cache";
 import { repo } from "@/server/repo";

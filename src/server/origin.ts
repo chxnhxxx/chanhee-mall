@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 현재 사이트의 주소(https://…)를 알아내는 도우미. 결제 후 돌아올 주소를 만들 때 씁니다.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { headers } from "next/headers";
 import { env } from "@/env";

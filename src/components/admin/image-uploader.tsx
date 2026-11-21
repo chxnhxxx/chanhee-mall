@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 상품 이미지 올리기. 큰 파일도 끊기면 이어서 올라가는 방식(tus)으로 Supabase 저장소에 올립니다.
+ * 데모 모드에서는 이미지 주소를 직접 입력합니다.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { createBrowserClient } from "@supabase/ssr";

@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 사이트 전체의 색상·글꼴 같은 기본 디자인 값. 대표 색(주황 계열)도 여기서 정합니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";

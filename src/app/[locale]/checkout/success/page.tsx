@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 결제 완료 화면. 주문번호와 '주문 상세 보기' 버튼, GA4 구매 기록.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { PurchaseTracker } from "@/components/checkout/purchase-tracker";

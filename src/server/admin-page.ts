@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 페이지 문지기. 로그인 안 했으면 로그인 화면으로, 관리자가 아니면 홈으로 보냅니다.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { setRequestLocale } from "next-intl/server";
 import { redirect } from "@/i18n/navigation";

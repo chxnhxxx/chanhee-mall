@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 돈 계산 규칙 검사: 배송비 기준, 합계, 주문명, 주문번호 형식.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { describe, expect, it } from "vitest";
 import {
   buildOrderName,

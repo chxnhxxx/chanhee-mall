@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] Next.js(이 웹사이트의 뼈대 프로그램) 전체 설정.
+ * 보안 헤더(해킹 방지용 안내문), 외부 이미지 허용 주소, 다국어·Sentry 연결을 여기서 켭니다.
+ * 리뷰 순서: 1단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { withSentryConfig } from "@sentry/nextjs/config";
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";

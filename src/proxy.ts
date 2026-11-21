@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 모든 페이지 요청이 제일 먼저 지나가는 '현관문'.
+ * 1) 주소에 언어가 없으면 /ko 로 보내고  2) Supabase 로그인이 곧 만료되면 미리 연장합니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { createServerClient } from "@supabase/ssr";
 import createIntlMiddleware from "next-intl/middleware";
 import type { NextRequest } from "next/server";
@@ -17,6 +22,7 @@ const supabaseEnabled =
   !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY &&
   !!process.env.SUPABASE_SECRET_KEY;
 
+// ▶ 모든 페이지 요청마다 실행: ① 언어 주소 처리 ② (Supabase 모드) 로그인 연장
 export async function proxy(request: NextRequest) {
   const response = intl(request);
 

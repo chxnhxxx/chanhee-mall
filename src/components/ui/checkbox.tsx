@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 디자인 부품: 체크박스. shadcn/ui 도구가 자동으로 만든 파일이라 직접 고칠 일은 거의 없습니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import * as React from "react";

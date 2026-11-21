@@ -4,6 +4,7 @@
 
 - 기획서(PRD): https://claude.ai/artifact/645KBGhbEcs2YX8HoDu7Et
 - 기술 스택 결정 기록: https://claude.ai/artifact/Rt36HF15DgX7QtmySApJMZ
+- **코드 리뷰 순서 안내(비개발자용): [docs/REVIEW_GUIDE.md](docs/REVIEW_GUIDE.md)**
 - **가입·키 발급·배포 체크리스트: [docs/SETUP_CHECKLIST.md](docs/SETUP_CHECKLIST.md)** ← 다음에 할 일
 
 ## 지금 바로 실행해 보기 (가입 없이)

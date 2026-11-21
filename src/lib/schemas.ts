@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 입력값 검사 규칙(Zod). 이메일 형식, 우편번호 5자리, 전화번호, 상품 등록 양식 등.
+ * 화면에서 한 번, 서버에서 또 한 번 같은 규칙으로 검사합니다(화면 검사는 우회될 수 있으므로).
+ * 리뷰 순서: 2단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { z } from "zod";
 import { MAX_QTY_PER_LINE } from "./pricing";
 

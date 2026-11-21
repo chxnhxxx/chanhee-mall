@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 대시보드: 오늘 주문·매출, 발송 대기, 반품 요청, 14일 매출 그래프, 최근 주문.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { NewOrderListener } from "@/components/admin/new-order-listener";

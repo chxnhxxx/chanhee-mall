@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 브라우저를 자동 조작해 실제 사용 흐름을 검사: 담기 → 로그인 → 주문 → 결제 → 취소, 관리자 발송, 권한 차단.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { expect, type Page, test } from "@playwright/test";
 
 test.describe.configure({ mode: "serial" });

@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 주문 상태(결제 완료, 배송중 등)를 색깔 있는 꼬리표로 보여 주는 부품.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Badge } from "@/components/ui/badge";
 import type { OrderStatus } from "@/lib/domain";
 import { cn } from "@/lib/utils";

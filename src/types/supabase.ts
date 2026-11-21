@@ -1,4 +1,9 @@
 /**
+ * [쉬운 설명] DB 테이블 구조를 TypeScript 가 이해하도록 적은 설명서.
+ * 주의: 지금은 손으로 쓴 임시본입니다. Supabase 연결 후 `pnpm db:types` 를 실행하면 자동 생성본으로 통째로 바뀝니다(이 설명도 사라짐).
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * Supabase DB 타입.
  * ⚠️ 지금은 supabase/migrations 를 보고 손으로 맞춘 "임시본"입니다.
  * Supabase 프로젝트를 연결한 뒤 `pnpm db:types` 로 자동 생성본으로 덮어쓰세요.

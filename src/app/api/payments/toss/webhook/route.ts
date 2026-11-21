@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] 토스가 '결제 상태가 바뀌었다'고 알려 주는 주소(웹훅). 보조 안전망입니다.
+ * 알림 내용을 그대로 믿지 않고, 토스에 직접 다시 물어본 결과만 반영합니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { syncFromToss } from "@/server/orders";
@@ -14,6 +19,7 @@ const bodySchema = z.object({
   data: z.object({ paymentKey: z.string().min(1).max(200) }).passthrough(),
 });
 
+// ▶ 토스가 보내는 알림을 받는 곳. 응답 200 = '잘 받았어요', 500 = '나중에 다시 보내 주세요'
 export async function POST(request: Request) {
   let payload: unknown;
   try {

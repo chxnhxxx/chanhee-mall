@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 없는 주소로 들어왔을 때 보여 주는 404 화면.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 

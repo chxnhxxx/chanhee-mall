@@ -1,3 +1,6 @@
+# [쉬운 설명] 사용 중인 외부 라이브러리에 새 버전·보안 패치가 나오면 GitHub 가 자동으로 업데이트 제안(PR)을 만들어 주는 설정.
+# 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+
 # 의존성 업데이트 PR 을 매주 자동으로 만들어 줌. 보안 패치는 GitHub 설정에서 "Dependabot security updates" 를 켜면 즉시 생성.
 version: 2
 updates:

@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 로그인 화면. 데모 사이트라서 테스트 계정을 화면에 안내합니다(실제 서비스라면 하지 않음).
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";

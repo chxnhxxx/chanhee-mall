@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 로그인·회원가입 입력 양식. 입력값을 먼저 화면에서 검사하고, 통과하면 서버로 보냅니다.
+ * 리뷰 순서: 5단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";

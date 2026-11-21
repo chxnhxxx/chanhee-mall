@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 한국어 ↔ 영어 전환 버튼. 지금 보던 페이지를 다른 언어로 다시 엽니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useLocale } from "next-intl";

@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 주문 작업 버튼: 결제 완료 → 송장 입력·발송, 배송중 → 배송 완료, 반품 요청 → 승인(환불).
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { useState, useTransition } from "react";

@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] E2E 테스트 도구(Playwright) 설정. 실제 브라우저를 자동으로 조작해 '사람처럼' 쇼핑해 보는 검사입니다.
+ * 외부 서비스 없이 데모 모드로 사이트를 띄워서 검사합니다.
+ * 리뷰 순서: 9단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3100;

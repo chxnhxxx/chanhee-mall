@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품 목록 화면. 카테고리 선택과 검색어(?q=)에 따라 상품을 걸러 보여줍니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";

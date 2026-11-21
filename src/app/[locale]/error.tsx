@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 페이지에서 예상치 못한 오류가 났을 때 보여 주는 화면('다시 시도' 버튼).
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import * as Sentry from "@sentry/nextjs";

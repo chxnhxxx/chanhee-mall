@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 장바구니 화면. 로그인 여부를 확인해 손님용/회원용 장바구니를 보여줍니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";

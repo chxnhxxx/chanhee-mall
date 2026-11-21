@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 주문 상세 화면(상품·금액·배송지·송장). 남의 주문번호를 넣으면 목록으로 돌려보냅니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { OrderActions } from "@/components/order/order-actions";

@@ -1,4 +1,9 @@
 /**
+ * [쉬운 설명] 처음에 들어 있는 데모 데이터: 카테고리 4개, 상품 24개, 데모 계정 2개.
+ * supabase/seed.sql 도 이 파일에서 자동으로 만들어집니다.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * 데모 카탈로그 (PRD: 생활용품 4개 카테고리, 상품 24개, 옵션 포함).
  * 메모리 DB 초기값이자 supabase/seed.sql 생성 원본입니다 (pnpm db:seed-sql).
  * 이미지는 저작권 문제가 없도록 scripts/gen-placeholders.ts 가 만든 SVG를 씁니다.

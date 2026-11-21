@@ -1,3 +1,8 @@
+/**
+ * [쉬운 설명] '너무 많은 요청' 막기(레이트 리밋)와 임시 저장(캐시). Upstash Redis 를 쓰고, 없으면 서버 메모리로 대신합니다.
+ * 예: 로그인을 짧은 시간에 수십 번 시도하면 잠시 막습니다(비밀번호 무작위 대입 방지).
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";

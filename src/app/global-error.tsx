@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 공통 틀 자체가 고장 났을 때의 마지막 안전망 화면. 번역을 쓸 수 없어 한/영을 함께 적었습니다.
+ * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import * as Sentry from "@sentry/nextjs";

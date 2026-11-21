@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 실제 DB(Supabase)에 읽고 쓰는 코드. DB 의 열 이름(name_ko)과 코드의 이름(nameKo)을 서로 바꿔 주는 일도 합니다.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import "server-only";
 import type { Category, DailyStat, Order, OrderStatus, Product, ShippingAddress } from "@/lib/domain";
 import { MAX_QTY_PER_LINE } from "@/lib/pricing";

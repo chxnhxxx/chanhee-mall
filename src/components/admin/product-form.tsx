@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 상품 등록·수정 양식: 이름(한/영), 가격, 설명, 이미지, 옵션별 재고.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";

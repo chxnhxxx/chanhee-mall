@@ -1,4 +1,8 @@
 /**
+ * [쉬운 설명] Supabase 에 데모 계정 2개(관리자·고객)를 만드는 도구. `pnpm db:demo-users`.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * Supabase 프로젝트에 데모 테스트 계정 2개를 만들고, 관리자 계정의 role 을 admin 으로 바꿉니다.
  * 실행 전: .env.local 에 NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SECRET_KEY 를 넣으세요.
  * 실행: pnpm db:demo-users

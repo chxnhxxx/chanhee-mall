@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 내 주문 내역 목록 화면.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";

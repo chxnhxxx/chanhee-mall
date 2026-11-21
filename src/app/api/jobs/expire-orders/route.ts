@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 결제하지 않고 30분이 지난 주문을 자동 취소하고 재고를 되돌리는 예약 작업 주소(비밀 토큰 필요).
+ * 리뷰 순서: 8단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { NextResponse } from "next/server";
 import { isAuthorizedCron } from "@/server/cron-auth";
 import { repo } from "@/server/repo";

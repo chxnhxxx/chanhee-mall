@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 대시보드에서 새 주문이 들어오면 알림을 띄우는 부품(Supabase 실시간 기능, 데모 모드는 30초마다 새로고침).
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { createBrowserClient } from "@supabase/ssr";

@@ -1,4 +1,8 @@
 /**
+ * [쉬운 설명] seed-data.ts 의 데모 상품을 Supabase 에 넣을 SQL 파일(supabase/seed.sql)로 바꿔 주는 도구. `pnpm db:seed-sql`.
+ * 리뷰 순서: 4단계 (docs/REVIEW_GUIDE.md 참고)
+ */
+/**
  * src/server/seed-data.ts → supabase/seed.sql 생성.
  * 실행: pnpm db:seed-sql   (Node 24+ 의 TypeScript 타입 제거 실행 사용)
  * 데모 계정(auth.users)은 SQL 로 넣지 않고 scripts/create-demo-users.ts 로 만듭니다.

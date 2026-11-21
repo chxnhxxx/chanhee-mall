@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 토스페이먼츠 결제위젯(카드·간편결제 선택 화면)을 불러와 결제창을 띄우는 부품.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 "use client";
 
 import { loadTossPayments, type TossPaymentsWidgets } from "@tosspayments/tosspayments-sdk";
@@ -25,6 +29,7 @@ export function TossPayment(props: {
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
   const [ready, setReady] = useState(false);
 
+  // ▶ 화면이 열리면 토스 결제위젯을 불러와서, 서버가 정한 금액으로 결제수단·약관 영역을 그립니다.
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -49,6 +54,7 @@ export function TossPayment(props: {
     };
   }, [props.clientKey, props.customerKey, props.amount]);
 
+  // ▶ '결제하기' 버튼 → 토스 결제창이 뜸. 결제가 끝나면 토스가 successUrl(우리 서버)로 돌려보냅니다.
   async function pay() {
     if (!widgets) return;
     try {

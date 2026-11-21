@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 관리자 새 상품 등록 화면.
+ * 리뷰 순서: 7단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductForm } from "@/components/admin/product-form";

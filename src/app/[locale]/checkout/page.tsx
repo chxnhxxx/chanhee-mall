@@ -1,3 +1,7 @@
+/**
+ * [쉬운 설명] 주문서 화면(배송지 입력). 로그인과 장바구니가 비어 있지 않은지 먼저 확인합니다.
+ * 리뷰 순서: 6단계 (docs/REVIEW_GUIDE.md 참고)
+ */
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
