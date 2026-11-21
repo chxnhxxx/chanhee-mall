@@ -72,8 +72,10 @@ async function OrderDetail({ params }: { params: Promise<{ locale: string; order
           <li key={i.id} className="flex justify-between gap-2 p-3">
             <span>
               {lang === "en" ? i.productNameEn : i.productNameKo}
-              <span className="text-muted-foreground"> · {lang === "en" ? i.variantNameEn : i.variantNameKo}</span> ×{" "}
-              {i.quantity}
+              <span className="text-muted-foreground">
+                {" "}
+                · {lang === "en" ? i.variantNameEn : i.variantNameKo}
+              </span> × {i.quantity}
             </span>
             <span>{formatKRW(i.unitPrice * i.quantity, lang)}</span>
           </li>

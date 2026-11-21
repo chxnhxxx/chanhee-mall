@@ -29,11 +29,17 @@ const csp = [
   .replace(/\s+/g, " ");
 
 const securityHeaders = [
-  { key: process.env.CSP_ENFORCE === "1" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only", value: csp },
+  {
+    key: process.env.CSP_ENFORCE === "1" ? "Content-Security-Policy" : "Content-Security-Policy-Report-Only",
+    value: csp,
+  },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "X-Frame-Options", value: "DENY" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(self \"https://*.tosspayments.com\")" },
+  {
+    key: "Permissions-Policy",
+    value: 'camera=(), microphone=(), geolocation=(), payment=(self "https://*.tosspayments.com")',
+  },
   // [미확인] Vercel 이 HSTS 를 기본 적용하는지. 명시해도 해가 없어 넣어 둠 (로컬 http 에서는 브라우저가 무시)
   { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" },
 ];

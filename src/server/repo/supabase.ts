@@ -102,7 +102,11 @@ export function createSupabaseRepo(): Repo {
       let query = db.from("products").select(PRODUCT_SELECT).order("created_at", { ascending: false });
       if (!opts.includeUnpublished) query = query.eq("is_published", true);
       if (opts.categorySlug) {
-        const { data: cat } = await publicClient().from("categories").select("id").eq("slug", opts.categorySlug).maybeSingle();
+        const { data: cat } = await publicClient()
+          .from("categories")
+          .select("id")
+          .eq("slug", opts.categorySlug)
+          .maybeSingle();
         if (!cat) return [];
         query = query.eq("category_id", cat.id);
       }
@@ -127,14 +131,23 @@ export function createSupabaseRepo(): Repo {
     },
 
     async getProductById(id) {
-      const { data, error } = await (await userClient()).from("products").select(PRODUCT_SELECT).eq("id", id).maybeSingle();
+      const { data, error } = await (
+        await userClient()
+      )
+        .from("products")
+        .select(PRODUCT_SELECT)
+        .eq("id", id)
+        .maybeSingle();
       if (error) mapDbError(error);
       return data ? toProduct(data as unknown as ProductWithVariants) : null;
     },
 
     async getVariantsWithProduct(variantIds) {
       if (variantIds.length === 0) return [];
-      const { data: vs, error } = await publicClient().from("product_variants").select("id, product_id").in("id", variantIds);
+      const { data: vs, error } = await publicClient()
+        .from("product_variants")
+        .select("id, product_id")
+        .in("id", variantIds);
       if (error) mapDbError(error);
       const productIds = [...new Set(vs.map((v) => v.product_id))];
       const { data: ps, error: e2 } = await publicClient()
@@ -195,7 +208,9 @@ export function createSupabaseRepo(): Repo {
     },
 
     async getCart(userId) {
-      const { data, error } = await (await userClient())
+      const { data, error } = await (
+        await userClient()
+      )
         .from("cart_items")
         .select("variant_id, quantity")
         .eq("user_id", userId)
@@ -244,13 +259,19 @@ export function createSupabaseRepo(): Repo {
 
     async getOrderByNumber(orderNumber) {
       // 소유자 확인은 호출하는 서버 액션이 함. 웹훅·결제 승인에서도 쓰므로 service 사용
-      const { data, error } = await serviceClient().from("orders").select(ORDER_SELECT).eq("order_number", orderNumber).maybeSingle();
+      const { data, error } = await serviceClient()
+        .from("orders")
+        .select(ORDER_SELECT)
+        .eq("order_number", orderNumber)
+        .maybeSingle();
       if (error) mapDbError(error);
       return data ? toOrder(data as unknown as OrderWithItems) : null;
     },
 
     async listOrdersByUser(userId) {
-      const { data, error } = await (await userClient())
+      const { data, error } = await (
+        await userClient()
+      )
         .from("orders")
         .select(ORDER_SELECT)
         .eq("user_id", userId)
@@ -260,7 +281,11 @@ export function createSupabaseRepo(): Repo {
     },
 
     async listOrders(opts = {}) {
-      let q = (await userClient()).from("orders").select(ORDER_SELECT).order("created_at", { ascending: false }).limit(200);
+      let q = (await userClient())
+        .from("orders")
+        .select(ORDER_SELECT)
+        .order("created_at", { ascending: false })
+        .limit(200);
       if (opts.status) q = q.eq("status", opts.status);
       const { data, error } = await q;
       if (error) mapDbError(error);
@@ -295,7 +320,12 @@ export function createSupabaseRepo(): Repo {
       if (patch.status !== undefined) row.status = patch.status;
       if (patch.trackingNumber !== undefined) row.tracking_number = patch.trackingNumber;
       if (patch.returnReason !== undefined) row.return_reason = patch.returnReason;
-      const { data, error } = await serviceClient().from("orders").update(row).eq("id", orderId).select(ORDER_SELECT).single();
+      const { data, error } = await serviceClient()
+        .from("orders")
+        .update(row)
+        .eq("id", orderId)
+        .select(ORDER_SELECT)
+        .single();
       if (error) mapDbError(error);
       return toOrder(data as unknown as OrderWithItems);
     },

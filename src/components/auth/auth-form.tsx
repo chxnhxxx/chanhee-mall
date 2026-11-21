@@ -16,7 +16,15 @@ import { useCartStore } from "@/stores/cart-store";
 type Mode = "login" | "signup";
 type Values = { name?: string; email: string; password: string };
 
-export function AuthForm({ mode, next, demoAccounts }: { mode: Mode; next?: string; demoAccounts?: { email: string; password: string; label: string }[] }) {
+export function AuthForm({
+  mode,
+  next,
+  demoAccounts,
+}: {
+  mode: Mode;
+  next?: string;
+  demoAccounts?: { email: string; password: string; label: string }[];
+}) {
   const t = useTranslations("auth");
   const tv = useTranslations("validation");
   const locale = useLocale();

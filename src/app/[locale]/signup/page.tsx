@@ -20,7 +20,11 @@ export default async function SignupPage({ params, searchParams }: PageProps<"/[
   );
 }
 
-async function SignupWithNext({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+async function SignupWithNext({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const sp = await searchParams;
   return <AuthForm mode="signup" next={typeof sp.next === "string" ? sp.next : undefined} />;
 }

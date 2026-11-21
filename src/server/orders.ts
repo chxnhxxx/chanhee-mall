@@ -31,7 +31,11 @@ export async function placeOrder(userId: string, shipping: ShippingAddress): Pro
 
 export type ConfirmResult =
   | { ok: true; order: Order; alreadyPaid: boolean }
-  | { ok: false; code: "NOT_FOUND" | "FORBIDDEN" | "AMOUNT_MISMATCH" | "INVALID_STATE" | "TOSS_ERROR"; message?: string };
+  | {
+      ok: false;
+      code: "NOT_FOUND" | "FORBIDDEN" | "AMOUNT_MISMATCH" | "INVALID_STATE" | "TOSS_ERROR";
+      message?: string;
+    };
 
 /**
  * 결제 승인 (토스 successUrl 로 돌아온 뒤 서버에서 호출).
@@ -93,7 +97,9 @@ export async function confirmOrderPayment(input: {
     // 이미 승인된 결제를 다시 승인하려 한 경우(ALREADY_PROCESSED_PAYMENT)는 조회로 확인
     if (e instanceof TossError && e.code === "ALREADY_PROCESSED_PAYMENT") {
       return syncFromToss(input.paymentKey).then((o) =>
-        o && o.status === "paid" ? { ok: true as const, order: o, alreadyPaid: true } : { ok: false as const, code: "TOSS_ERROR" as const, message },
+        o && o.status === "paid"
+          ? { ok: true as const, order: o, alreadyPaid: true }
+          : { ok: false as const, code: "TOSS_ERROR" as const, message },
       );
     }
     return { ok: false, code: "TOSS_ERROR", message };

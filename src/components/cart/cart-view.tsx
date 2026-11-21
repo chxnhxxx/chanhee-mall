@@ -62,7 +62,10 @@ export function CartView({ mode, initial }: { mode: "guest" | "user"; initial: P
       <ul className="divide-y rounded-xl border" data-testid="cart-lines">
         {cart.lines.map((l) => (
           <li key={l.variantId} className="flex gap-3 p-3">
-            <Link href={`/products/${l.productSlug}`} className="relative size-20 shrink-0 overflow-hidden rounded-md bg-muted">
+            <Link
+              href={`/products/${l.productSlug}`}
+              className="relative size-20 shrink-0 overflow-hidden rounded-md bg-muted"
+            >
               {l.image ? <Image src={l.image} alt="" fill sizes="80px" className="object-cover" /> : null}
             </Link>
             <div className="flex flex-1 flex-col gap-1">

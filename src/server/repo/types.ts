@@ -40,13 +40,7 @@ export type OrderPatch = {
 export class RepoError extends Error {
   constructor(
     public code:
-      | "EMPTY_CART"
-      | "OUT_OF_STOCK"
-      | "NOT_AVAILABLE"
-      | "BAD_QUANTITY"
-      | "INVALID_STATE"
-      | "NOT_FOUND"
-      | "CONFLICT",
+      "EMPTY_CART" | "OUT_OF_STOCK" | "NOT_AVAILABLE" | "BAD_QUANTITY" | "INVALID_STATE" | "NOT_FOUND" | "CONFLICT",
     message?: string,
   ) {
     super(message ?? code);
@@ -98,7 +92,11 @@ export interface Repo {
   closeOrderRestock(orderId: string, from: OrderStatus[], to: OrderStatus): Promise<Order>;
   updateOrder(orderId: string, patch: OrderPatch): Promise<Order>;
   expirePendingOrders(): Promise<number>;
-  logPaymentEvent(orderNumber: string, kind: "confirm" | "cancel" | "webhook" | "error", payload: unknown): Promise<void>;
+  logPaymentEvent(
+    orderNumber: string,
+    kind: "confirm" | "cancel" | "webhook" | "error",
+    payload: unknown,
+  ): Promise<void>;
   dailyStats(days: number): Promise<DailyStat[]>;
 
   // 프로필

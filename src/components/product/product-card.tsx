@@ -4,7 +4,15 @@ import { Link } from "@/i18n/navigation";
 import type { Product } from "@/lib/domain";
 import { formatKRW } from "@/lib/pricing";
 
-export function ProductCard({ product, locale, soldOutLabel }: { product: Product; locale: string; soldOutLabel: string }) {
+export function ProductCard({
+  product,
+  locale,
+  soldOutLabel,
+}: {
+  product: Product;
+  locale: string;
+  soldOutLabel: string;
+}) {
   const soldOut = product.variants.every((v) => v.stock <= 0);
   const name = locale === "en" ? product.nameEn : product.nameKo;
   return (
@@ -37,7 +45,15 @@ export function ProductCard({ product, locale, soldOutLabel }: { product: Produc
   );
 }
 
-export function ProductGrid({ products, locale, soldOutLabel }: { products: Product[]; locale: string; soldOutLabel: string }) {
+export function ProductGrid({
+  products,
+  locale,
+  soldOutLabel,
+}: {
+  products: Product[];
+  locale: string;
+  soldOutLabel: string;
+}) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       {products.map((p) => (

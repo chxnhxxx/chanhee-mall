@@ -21,7 +21,8 @@ export async function GET(request: NextRequest) {
   const origin = await requestOrigin();
   const parsed = querySchema.safeParse(Object.fromEntries(request.nextUrl.searchParams));
   const locale = parsed.success ? parsed.data.locale : "ko";
-  const fail = (code: string) => NextResponse.redirect(`${origin}/${locale}/checkout/fail?code=${encodeURIComponent(code)}`, 303);
+  const fail = (code: string) =>
+    NextResponse.redirect(`${origin}/${locale}/checkout/fail?code=${encodeURIComponent(code)}`, 303);
 
   if (!parsed.success) return fail("INVALID_STATE");
   if (!(await rateLimit("checkout", await clientIp()))) return fail("RATE_LIMITED");

@@ -16,7 +16,8 @@ export type TossPayment = {
   paymentKey: string;
   orderId: string;
   orderName?: string;
-  status: "READY" | "IN_PROGRESS" | "WAITING_FOR_DEPOSIT" | "DONE" | "CANCELED" | "PARTIAL_CANCELED" | "ABORTED" | "EXPIRED";
+  status:
+    "READY" | "IN_PROGRESS" | "WAITING_FOR_DEPOSIT" | "DONE" | "CANCELED" | "PARTIAL_CANCELED" | "ABORTED" | "EXPIRED";
   totalAmount: number;
   balanceAmount?: number;
   method?: string | null;
@@ -57,9 +58,14 @@ async function call<T>(path: string, init: RequestInit & { idempotencyKey?: stri
   return body;
 }
 
-export async function confirmPayment(input: { paymentKey: string; orderId: string; amount: number }): Promise<TossPayment> {
+export async function confirmPayment(input: {
+  paymentKey: string;
+  orderId: string;
+  amount: number;
+}): Promise<TossPayment> {
   if (isMockMode()) {
-    if (!input.paymentKey.startsWith(MOCK_PAYMENT_KEY_PREFIX)) throw new TossError("INVALID_KEY", "모의 결제 키 아님", 400);
+    if (!input.paymentKey.startsWith(MOCK_PAYMENT_KEY_PREFIX))
+      throw new TossError("INVALID_KEY", "모의 결제 키 아님", 400);
     return {
       paymentKey: input.paymentKey,
       orderId: input.orderId,
@@ -76,7 +82,11 @@ export async function confirmPayment(input: { paymentKey: string; orderId: strin
   });
 }
 
-export async function cancelPayment(input: { paymentKey: string; reason: string; idempotencyKey: string }): Promise<TossPayment> {
+export async function cancelPayment(input: {
+  paymentKey: string;
+  reason: string;
+  idempotencyKey: string;
+}): Promise<TossPayment> {
   if (isMockMode() || input.paymentKey.startsWith(MOCK_PAYMENT_KEY_PREFIX)) {
     return { paymentKey: input.paymentKey, orderId: "", status: "CANCELED", totalAmount: 0, balanceAmount: 0 };
   }

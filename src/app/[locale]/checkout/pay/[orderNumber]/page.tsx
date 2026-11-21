@@ -23,7 +23,8 @@ async function PayContent({ params }: { params: Promise<{ locale: string; orderN
   const { locale, orderNumber } = await params;
   setRequestLocale(locale);
   const session = await getSession();
-  if (!session) redirect({ href: { pathname: "/login", query: { next: `/${locale}/checkout/pay/${orderNumber}` } }, locale });
+  if (!session)
+    redirect({ href: { pathname: "/login", query: { next: `/${locale}/checkout/pay/${orderNumber}` } }, locale });
   const order = await repo().getOrderByNumber(orderNumber);
   // 남의 주문번호로 들어오면 "없는 주문"처럼 처리
   if (!order || order.userId !== session!.userId) redirect({ href: "/orders", locale });

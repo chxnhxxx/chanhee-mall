@@ -28,7 +28,11 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
   );
 }
 
-async function LoginWithNext({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+async function LoginWithNext({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const sp = await searchParams;
   const next = typeof sp.next === "string" ? sp.next : undefined;
   return <AuthForm mode="login" next={next} demoAccounts={demoAccounts} />;

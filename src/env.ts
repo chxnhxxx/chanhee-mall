@@ -42,9 +42,7 @@ const serverSchema = z.object({
   NEXT_PUBLIC_TOSS_CLIENT_KEY: optionalString.pipe(
     z.string().startsWith("test_", "테스트 키(test_)만 허용합니다").optional(),
   ),
-  TOSS_SECRET_KEY: optionalString.pipe(
-    z.string().startsWith("test_", "테스트 키(test_)만 허용합니다").optional(),
-  ),
+  TOSS_SECRET_KEY: optionalString.pipe(z.string().startsWith("test_", "테스트 키(test_)만 허용합니다").optional()),
 
   // Resend
   RESEND_API_KEY: optionalString,
@@ -72,9 +70,7 @@ export type ServerEnv = z.infer<typeof serverSchema>;
 function parseEnv(): ServerEnv {
   const parsed = serverSchema.safeParse(process.env);
   if (!parsed.success) {
-    const issues = parsed.error.issues
-      .map((i) => `  - ${i.path.join(".")}: ${i.message}`)
-      .join("\n");
+    const issues = parsed.error.issues.map((i) => `  - ${i.path.join(".")}: ${i.message}`).join("\n");
     throw new Error(`환경변수 형식 오류:\n${issues}`);
   }
   return parsed.data;

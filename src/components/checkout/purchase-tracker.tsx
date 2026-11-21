@@ -13,7 +13,12 @@ export function PurchaseTracker(props: { transactionId: string; value: number; s
     } catch {
       // 저장소를 못 쓰는 환경이면 그냥 보냄
     }
-    track("purchase", { transaction_id: props.transactionId, value: props.value, shipping: props.shipping, items: props.items });
+    track("purchase", {
+      transaction_id: props.transactionId,
+      value: props.value,
+      shipping: props.shipping,
+      items: props.items,
+    });
   }, [props]);
   return null;
 }

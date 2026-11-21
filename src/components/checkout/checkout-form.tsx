@@ -41,7 +41,13 @@ export function CheckoutForm({ cart, defaultRecipient }: { cart: PricedCart; def
   useEffect(() => {
     track("begin_checkout", {
       value: cart.totalAmount,
-      items: cart.lines.map((l) => ({ item_id: l.productId, item_name: l.productNameKo, item_variant: l.variantNameKo, price: l.unitPrice, quantity: l.quantity })),
+      items: cart.lines.map((l) => ({
+        item_id: l.productId,
+        item_name: l.productNameKo,
+        item_variant: l.variantNameKo,
+        price: l.unitPrice,
+        quantity: l.quantity,
+      })),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

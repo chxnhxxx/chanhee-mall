@@ -47,7 +47,10 @@ async function ProductList({
   }
 
   const chip = (active: boolean) =>
-    cn("rounded-full border px-3 py-1 text-sm", active ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted");
+    cn(
+      "rounded-full border px-3 py-1 text-sm",
+      active ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted",
+    );
 
   return (
     <div className="flex flex-col gap-4">

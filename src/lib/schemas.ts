@@ -36,7 +36,9 @@ export const cartLineSchema = z.object({
   variantId: z.uuid(),
   quantity: z.number().int().min(0).max(MAX_QTY_PER_LINE),
 });
-export const guestLinesSchema = z.array(cartLineSchema.extend({ quantity: z.number().int().min(1).max(MAX_QTY_PER_LINE) })).max(50);
+export const guestLinesSchema = z
+  .array(cartLineSchema.extend({ quantity: z.number().int().min(1).max(MAX_QTY_PER_LINE) }))
+  .max(50);
 
 export const returnSchema = z.object({
   orderNumber: z.string().regex(/^[A-Za-z0-9_-]{6,64}$/),

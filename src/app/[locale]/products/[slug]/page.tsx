@@ -38,14 +38,23 @@ async function ProductDetail({ params }: { params: Promise<{ locale: string; slu
     <div className="grid gap-8 md:grid-cols-2">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted">
         {product.images[0] ? (
-          <Image src={product.images[0]} alt={name} fill priority sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+          <Image
+            src={product.images[0]}
+            alt={name}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover"
+          />
         ) : null}
       </div>
       <div className="flex flex-col gap-5">
         <h1 className="text-2xl font-bold" data-testid="product-name">
           {name}
         </h1>
-        <p className="whitespace-pre-line text-muted-foreground">{lang === "en" ? product.descriptionEn : product.descriptionKo}</p>
+        <p className="whitespace-pre-line text-muted-foreground">
+          {lang === "en" ? product.descriptionEn : product.descriptionKo}
+        </p>
         <AddToCart product={product} locale={lang} />
         <div className="space-y-1 rounded-lg bg-muted/60 p-4 text-sm text-muted-foreground">
           <p>{t("shippingInfo")}</p>

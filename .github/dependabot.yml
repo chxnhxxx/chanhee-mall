@@ -1,0 +1,24 @@
+# 의존성 업데이트 PR 을 매주 자동으로 만들어 줌. 보안 패치는 GitHub 설정에서 "Dependabot security updates" 를 켜면 즉시 생성.
+version: 2
+updates:
+  - package-ecosystem: npm # pnpm-lock.yaml 도 이 설정으로 관리됨
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Seoul
+    open-pull-requests-limit: 5
+    groups:
+      # 자잘한 PR 이 쏟아지지 않도록 묶음
+      minor-and-patch:
+        update-types: [minor, patch]
+    ignore:
+      # 메이저 버전은 직접 확인 후 올림 (Next.js·React 처럼 깨지는 변경이 잦음)
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
