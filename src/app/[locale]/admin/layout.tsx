@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Link, redirect } from "@/i18n/navigation";
-import { getSession } from "@/server/auth";
+import { setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
-// 관리자 화면은 한국어 전용입니다 (운영자 1명 기준)
+// 관리자 화면은 한국어 전용입니다 (운영자 1명 기준).
+// 권한 검사는 각 페이지의 assertAdminPage() 와 각 서버 액션의 requireAdmin() 이 합니다.
 export const metadata: Metadata = { title: "관리자", robots: { index: false, follow: false } };
 
-export default function AdminLayout({ children, params }: LayoutProps<"/[locale]/admin">) {
+export default async function AdminLayout({ children, params }: LayoutProps<"/[locale]/admin">) {
+  // Link 가 현재 언어를 헤더에서 읽지 않도록 미리 알려줌 (정적 미리 렌더 유지)
+  setRequestLocale((await params).locale);
   return (
     <div className="flex flex-col gap-6">
       <nav className="flex flex-wrap items-center gap-1 border-b pb-3 text-sm">
@@ -22,18 +23,7 @@ export default function AdminLayout({ children, params }: LayoutProps<"/[locale]
           주문
         </Link>
       </nav>
-      <Suspense fallback={<Skeleton className="h-96 w-full" />}>
-        <AdminGuard params={params}>{children}</AdminGuard>
-      </Suspense>
+      {children}
     </div>
   );
-}
-
-/** 화면 보호: 로그인 안 했으면 로그인으로, 관리자가 아니면 홈으로. (서버 액션도 각자 requireAdmin 으로 다시 검사) */
-async function AdminGuard({ params, children }: { params: Promise<{ locale: string }>; children: React.ReactNode }) {
-  const { locale } = await params;
-  const session = await getSession();
-  if (!session) redirect({ href: { pathname: "/login", query: { next: `/${locale}/admin` } }, locale });
-  if (session!.role !== "admin") redirect({ href: "/", locale });
-  return <>{children}</>;
 }

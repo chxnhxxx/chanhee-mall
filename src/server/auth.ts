@@ -1,6 +1,7 @@
 import "server-only";
 import { createHmac, scryptSync, timingSafeEqual } from "node:crypto";
 import { cookies } from "next/headers";
+import { connection } from "next/server";
 import { cache } from "react";
 import { features, sessionSecret } from "@/env";
 import type { Role } from "@/lib/domain";
@@ -52,12 +53,15 @@ async function readMemSession(): Promise<string | null> {
   const expected = Buffer.from(sign(payload));
   const given = Buffer.from(sig);
   if (expected.length !== given.length || !timingSafeEqual(expected, given)) return null;
+  let parsed: { uid: string; exp: number };
   try {
-    const { uid, exp } = JSON.parse(Buffer.from(payload, "base64url").toString()) as { uid: string; exp: number };
-    return exp > Date.now() ? uid : null;
+    parsed = JSON.parse(Buffer.from(payload, "base64url").toString()) as { uid: string; exp: number };
   } catch {
     return null;
   }
+  // 만료 확인에 현재 시각이 필요 → "요청 시점"에만 실행되도록 표시 (미리 렌더·프리페치 중에는 여기서 멈춤)
+  await connection();
+  return parsed.exp > Date.now() ? parsed.uid : null;
 }
 
 /* ─────────────── 공개 함수 ─────────────── */

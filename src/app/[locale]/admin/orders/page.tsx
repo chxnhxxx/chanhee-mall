@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { StatusBadge } from "@/components/order/status-badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "@/i18n/navigation";
@@ -5,8 +7,10 @@ import { STATUS_KO, formatDateTimeKo } from "@/lib/admin-format";
 import { ORDER_STATUSES, type OrderStatus } from "@/lib/domain";
 import { formatKRW } from "@/lib/pricing";
 import { repo } from "@/server/repo";
+import { assertAdminPage } from "@/server/admin-page";
 
-export default async function AdminOrdersPage({ searchParams }: PageProps<"/[locale]/admin/orders">) {
+async function AdminOrdersPageContent({ params, searchParams }: PageProps<"/[locale]/admin/orders">) {
+  await assertAdminPage(params);
   const sp = await searchParams;
   const raw = typeof sp.status === "string" ? sp.status : undefined;
   const status = ORDER_STATUSES.includes(raw as OrderStatus) ? (raw as OrderStatus) : undefined;
@@ -73,5 +77,14 @@ function FilterLink({ label, active, href }: { label: string; active: boolean; h
     >
       {label}
     </Link>
+  );
+}
+
+// 요청마다 달라지는 데이터(로그인·주문)는 Suspense 안에서 읽어야 함 (Cache Components 규칙)
+export default function AdminOrdersPage(props: PageProps<"/[locale]/admin/orders">) {
+  return (
+    <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+      <AdminOrdersPageContent {...props} />
+    </Suspense>
   );
 }

@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { NewOrderListener } from "@/components/admin/new-order-listener";
 import { StatusBadge } from "@/components/order/status-badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,8 +8,10 @@ import { Link } from "@/i18n/navigation";
 import { STATUS_KO, formatDateTimeKo } from "@/lib/admin-format";
 import { formatKRW } from "@/lib/pricing";
 import { repo } from "@/server/repo";
+import { assertAdminPage } from "@/server/admin-page";
 
-export default async function AdminDashboard() {
+async function AdminDashboardContent({ params }: PageProps<"/[locale]/admin">) {
+  await assertAdminPage(params);
   const [stats, orders] = await Promise.all([repo().dailyStats(14), repo().listOrders()]);
   const today = stats.at(-1) ?? { day: "", orders: 0, revenue: 0 };
   const total = stats.reduce((acc, s) => ({ orders: acc.orders + s.orders, revenue: acc.revenue + s.revenue }), {
@@ -97,4 +101,13 @@ function Stat({ label, value, href }: { label: string; value: string; href?: str
     </Card>
   );
   return href ? <Link href={href}>{body}</Link> : body;
+}
+
+// 요청마다 달라지는 데이터(로그인·주문)는 Suspense 안에서 읽어야 함 (Cache Components 규칙)
+export default function AdminDashboard(props: PageProps<"/[locale]/admin">) {
+  return (
+    <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+      <AdminDashboardContent {...props} />
+    </Suspense>
+  );
 }

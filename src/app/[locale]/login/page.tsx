@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { AuthForm } from "@/components/auth/auth-form";
+import { Skeleton } from "@/components/ui/skeleton";
 import { DEMO_ACCOUNTS } from "@/server/seed-data";
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/login">): Promise<Metadata> {
@@ -21,7 +22,7 @@ export default async function LoginPage({ params, searchParams }: PageProps<"/[l
   const { locale } = await params;
   setRequestLocale(locale);
   return (
-    <Suspense fallback={<AuthForm mode="login" demoAccounts={demoAccounts} />}>
+    <Suspense fallback={<Skeleton className="mx-auto my-8 h-96 w-full max-w-sm" />}>
       <LoginWithNext searchParams={searchParams} />
     </Suspense>
   );

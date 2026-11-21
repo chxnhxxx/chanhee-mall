@@ -1,11 +1,15 @@
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Link } from "@/i18n/navigation";
 import { formatKRW } from "@/lib/pricing";
 import { repo } from "@/server/repo";
+import { assertAdminPage } from "@/server/admin-page";
 
-export default async function AdminProductsPage() {
+async function AdminProductsPageContent({ params }: PageProps<"/[locale]/admin/products">) {
+  await assertAdminPage(params);
   const [products, categories] = await Promise.all([
     repo().listProducts({ includeUnpublished: true }),
     repo().listCategories(),
@@ -44,7 +48,9 @@ export default async function AdminProductsPage() {
                   </TableCell>
                   <TableCell className="hidden md:table-cell">{catName.get(p.categoryId) ?? "-"}</TableCell>
                   <TableCell className="text-right">{formatKRW(p.price)}</TableCell>
-                  <TableCell className={`text-right ${stock === 0 ? "text-destructive" : stock < 5 ? "text-amber-600" : ""}`}>
+                  <TableCell
+                    className={`text-right ${stock === 0 ? "text-destructive" : stock < 5 ? "text-amber-600" : ""}`}
+                  >
                     {stock}
                   </TableCell>
                   <TableCell>
@@ -57,5 +63,14 @@ export default async function AdminProductsPage() {
         </Table>
       </div>
     </div>
+  );
+}
+
+// 요청마다 달라지는 데이터(로그인·주문)는 Suspense 안에서 읽어야 함 (Cache Components 규칙)
+export default function AdminProductsPage(props: PageProps<"/[locale]/admin/products">) {
+  return (
+    <Suspense fallback={<Skeleton className="h-96 w-full" />}>
+      <AdminProductsPageContent {...props} />
+    </Suspense>
   );
 }

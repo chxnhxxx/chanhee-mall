@@ -93,10 +93,7 @@ export function ProductForm({
           <Input placeholder="stainless-tumbler" {...form.register("slug")} />
         </Field>
         <Field label="카테고리" error={errors.categoryId?.message}>
-          <select
-            className="h-9 rounded-md border bg-transparent px-3 text-sm"
-            {...form.register("categoryId")}
-          >
+          <select className="h-9 rounded-md border bg-transparent px-3 text-sm" {...form.register("categoryId")}>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
                 {c.nameKo}
@@ -194,8 +191,12 @@ export function ProductForm({
                     type="button"
                     variant="ghost"
                     size="sm"
-                    disabled={variants.fields.length === 1 || !!f.id && !!product}
-                    title={f.id && product ? "주문 이력 보존을 위해 저장된 옵션은 삭제하지 않습니다. 재고를 0으로 두세요." : undefined}
+                    disabled={variants.fields.length === 1 || (!!f.id && !!product)}
+                    title={
+                      f.id && product
+                        ? "주문 이력 보존을 위해 저장된 옵션은 삭제하지 않습니다. 재고를 0으로 두세요."
+                        : undefined
+                    }
                     onClick={() => variants.remove(i)}
                   >
                     삭제
