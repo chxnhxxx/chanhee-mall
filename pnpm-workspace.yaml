@@ -1,0 +1,9 @@
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
+  '@parcel/watcher': false
+  '@swc/core': false
+  esbuild: false
+  supabase: true
+# 공개된 지 1일(1440분)이 안 된 새 버전은 설치하지 않음 (공급망 공격 완화)
+minimumReleaseAge: 1440
