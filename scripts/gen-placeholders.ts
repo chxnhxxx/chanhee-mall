@@ -9,11 +9,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { CATEGORIES, PRODUCTS } from "../src/server/seed-data.ts";
 
+// 카테고리별 [바탕색, 글자색] — 사이트 팔레트(코발트·버터·민트)에 맞춤
 const palette: Record<string, [string, string]> = {
-  kitchen: ["#FDE7D7", "#E07A3F"],
-  bathroom: ["#DDF0F7", "#2F86A6"],
-  storage: ["#E9E4F7", "#6B55B5"],
-  cleaning: ["#E2F4E4", "#3C8D4F"],
+  kitchen: ["#FFF1BF", "#8A6200"],
+  bathroom: ["#DCE6FF", "#2B4ACB"],
+  storage: ["#E6E1FA", "#4B3AA8"],
+  cleaning: ["#D3EEE1", "#1F6B4A"],
 };
 
 const esc = (s: string) => s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -32,10 +33,10 @@ for (const p of PRODUCTS) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="${esc(p.nameEn)}">
   <rect width="800" height="800" fill="${bg}"/>
   <circle cx="400" cy="340" r="190" fill="${fg}" opacity="0.14"/>
-  <rect x="270" y="210" width="260" height="260" rx="48" fill="${fg}" opacity="0.85"/>
+  <rect x="270" y="210" width="260" height="260" rx="72" fill="${fg}"/>
   <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="700" fill="#ffffff">${esc(initials)}</text>
   <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="${fg}">${esc(p.nameEn)}</text>
-  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="${fg}" opacity="0.7">chanhee-mall · ${esc(cat.nameEn)}</text>
+  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="${fg}" opacity="0.7">${esc(cat.nameEn)}</text>
 </svg>
 `;
   writeFileSync(new URL(`../public/products/${p.slug}.svg`, import.meta.url), svg);

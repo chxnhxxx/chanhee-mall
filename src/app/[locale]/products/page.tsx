@@ -50,15 +50,20 @@ async function ProductList({
     products = await getProducts(category);
   }
 
+  const activeCat = categories.find((c) => c.slug === category);
+  const activeName = activeCat ? (locale === "en" ? activeCat.nameEn : activeCat.nameKo) : undefined;
+
   const chip = (active: boolean) =>
     cn(
-      "rounded-full border px-3 py-1 text-sm",
-      active ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted",
+      "shrink-0 rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
+      active ? "bg-ink text-white" : "bg-card text-ink ring-1 ring-border hover:ring-primary",
     );
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap gap-2">
+    <div className="flex flex-col gap-5">
+      <h1 className="font-display text-3xl text-ink">{category ? (activeName ?? t("all")) : t("all")}</h1>
+      {/* ▶ 카테고리 칩: 모바일에서는 옆으로 밀어서 넘김 */}
+      <div className="-mx-4 no-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
         <Link href={q ? { pathname: "/products", query: { q } } : "/products"} className={chip(!category)}>
           {t("all")}
         </Link>
@@ -76,7 +81,12 @@ async function ProductList({
       {products.length === 0 ? (
         <p className="py-10 text-center text-muted-foreground">{t("empty")}</p>
       ) : (
-        <ProductGrid products={products} locale={locale} soldOutLabel={t("soldOut")} />
+        <ProductGrid
+          products={products}
+          locale={locale}
+          soldOutLabel={t("soldOut")}
+          lowStockLabel={(count) => t("stockLeft", { count })}
+        />
       )}
     </div>
   );

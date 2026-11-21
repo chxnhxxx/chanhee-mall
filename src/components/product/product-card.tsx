@@ -3,47 +3,55 @@
  * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
  */
 import Image from "next/image";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/lib/domain";
 import { formatKRW } from "@/lib/pricing";
+
+/** 남은 재고가 이 개수 이하이면 카드에 '남은 수량' 표시 */
+const LOW_STOCK = 10;
 
 export function ProductCard({
   product,
   locale,
   soldOutLabel,
+  lowStockLabel,
 }: {
   product: Product;
   locale: string;
   soldOutLabel: string;
+  lowStockLabel?: (count: number) => string;
 }) {
-  const soldOut = product.variants.every((v) => v.stock <= 0);
+  const stock = product.variants.reduce((sum, v) => sum + Math.max(0, v.stock), 0);
+  const soldOut = stock <= 0;
   const name = locale === "en" ? product.nameEn : product.nameKo;
   return (
-    <Link
-      href={`/products/${product.slug}`}
-      className="group flex flex-col gap-2 rounded-xl border bg-card p-2 transition hover:shadow-md"
-      data-testid="product-card"
-    >
-      <div className="relative aspect-square overflow-hidden rounded-lg bg-muted">
+    <Link href={`/products/${product.slug}`} className="group flex flex-col gap-2.5" data-testid="product-card">
+      <div className="relative aspect-square overflow-hidden rounded-2xl bg-card ring-1 ring-border">
         {product.images[0] ? (
           <Image
             src={product.images[0]}
             alt={name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition group-hover:scale-105"
+            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         ) : null}
         {soldOut ? (
-          <Badge variant="secondary" className="absolute top-2 left-2">
-            {soldOutLabel}
-          </Badge>
+          // ▶ 품절이면 사진 위를 어둡게 덮고 '품절' 표시
+          <div className="absolute inset-0 grid place-items-center bg-ink/55">
+            <span className="rounded-full bg-card px-3 py-1 text-xs font-bold text-ink">{soldOutLabel}</span>
+          </div>
+        ) : stock <= LOW_STOCK && lowStockLabel ? (
+          <span className="absolute bottom-2 left-2 rounded-md bg-butter px-2 py-0.5 text-[11px] font-bold text-ink">
+            {lowStockLabel(stock)}
+          </span>
         ) : null}
       </div>
-      <div className="px-1 pb-1">
-        <p className="line-clamp-2 text-sm">{name}</p>
-        <p className="mt-1 font-bold">{formatKRW(product.price, locale === "en" ? "en" : "ko")}</p>
+      <div className="px-0.5">
+        <p className="line-clamp-2 text-sm leading-snug text-ink/85 group-hover:text-primary">{name}</p>
+        <p className="mt-1 font-display text-lg leading-none text-ink">
+          {formatKRW(product.price, locale === "en" ? "en" : "ko")}
+        </p>
       </div>
     </Link>
   );
@@ -53,15 +61,17 @@ export function ProductGrid({
   products,
   locale,
   soldOutLabel,
+  lowStockLabel,
 }: {
   products: Product[];
   locale: string;
   soldOutLabel: string;
+  lowStockLabel?: (count: number) => string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
       {products.map((p) => (
-        <ProductCard key={p.id} product={p} locale={locale} soldOutLabel={soldOutLabel} />
+        <ProductCard key={p.id} product={p} locale={locale} soldOutLabel={soldOutLabel} lowStockLabel={lowStockLabel} />
       ))}
     </div>
   );
@@ -69,9 +79,9 @@ export function ProductGrid({
 
 export function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
       {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="aspect-[3/4] animate-pulse rounded-xl bg-muted" />
+        <div key={i} className="aspect-[4/5] animate-pulse rounded-2xl bg-muted" />
       ))}
     </div>
   );

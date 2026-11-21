@@ -23,7 +23,11 @@
     "heroBody": "Pick quickly on your commute or lunch break and check out in seconds.",
     "shopNow": "Shop now",
     "categories": "Categories",
-    "newArrivals": "New arrivals"
+    "newArrivals": "New arrivals",
+    "restockTitle": "Restock this week",
+    "restockHint": "Tick off what you've run out of. Tap a name to buy it.",
+    "itemCount": "{count} items",
+    "allProducts": "See all"
   },
   "product": {
     "all": "All",
@@ -162,7 +166,7 @@
     "terms": "Terms",
     "privacy": "Privacy",
     "refund": "Returns policy",
-    "business": "Demo project · no business registration (not for sale)"
+    "business": "Demo project with no business registration. Nothing is for sale."
   },
   "legal": {
     "termsTitle": "Terms of Service",

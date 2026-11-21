@@ -23,7 +23,11 @@
     "heroBody": "출퇴근길, 점심시간에 빠르게 고르고 바로 결제하세요.",
     "shopNow": "상품 보러 가기",
     "categories": "카테고리",
-    "newArrivals": "새로 들어온 상품"
+    "newArrivals": "새로 들어온 상품",
+    "restockTitle": "이번 주 채울 것",
+    "restockHint": "다 쓴 물건을 체크해 두고, 이름을 누르면 바로 살 수 있어요.",
+    "itemCount": "상품 {count}개",
+    "allProducts": "전체 보기"
   },
   "product": {
     "all": "전체",
@@ -162,7 +166,7 @@
     "terms": "이용약관",
     "privacy": "개인정보처리방침",
     "refund": "교환·환불 정책",
-    "business": "데모 프로젝트 · 사업자 정보 없음 (실제 판매하지 않음)"
+    "business": "데모 프로젝트라 사업자 정보가 없습니다. 실제로 판매하지 않습니다."
   },
   "legal": {
     "termsTitle": "이용약관",

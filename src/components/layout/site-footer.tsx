@@ -8,17 +8,21 @@ import { Link } from "@/i18n/navigation";
 export async function SiteFooter({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "footer" });
   return (
-    <footer className="border-t bg-muted/40">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-        <p>© 2026 chanhee-mall · {t("business")}</p>
-        <nav className="flex gap-4">
-          <Link href="/legal/terms" className="hover:text-foreground">
+    <footer className="border-t bg-card">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-xs text-muted-foreground sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-1">
+          <p className="font-display text-base text-ink">chanhee-mall</p>
+          <p>{t("business")}</p>
+          <p>© 2026 chanhee-mall</p>
+        </div>
+        <nav className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link href="/legal/terms" className="hover:text-ink">
             {t("terms")}
           </Link>
-          <Link href="/legal/privacy" className="font-semibold hover:text-foreground">
+          <Link href="/legal/privacy" className="font-bold text-ink hover:text-primary">
             {t("privacy")}
           </Link>
-          <Link href="/legal/refund" className="hover:text-foreground">
+          <Link href="/legal/refund" className="hover:text-ink">
             {t("refund")}
           </Link>
         </nav>

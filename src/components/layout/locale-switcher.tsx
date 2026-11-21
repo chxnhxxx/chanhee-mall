@@ -16,7 +16,7 @@ export function LocaleSwitcher({ label }: { label: string }) {
     <button
       type="button"
       aria-label={label}
-      className="rounded-md px-2 py-1 text-xs uppercase hover:bg-muted"
+      className="rounded-full px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:bg-secondary hover:text-ink"
       onClick={() => {
         const { pathname, search } = window.location;
         const rest = pathname.replace(/^\/(ko|en)(?=\/|$)/, "");
@@ -25,7 +25,7 @@ export function LocaleSwitcher({ label }: { label: string }) {
         window.location.assign(`/${next}${rest}${search}`);
       }}
     >
-      {next}
+      {next === "en" ? "EN" : "한국어"}
     </button>
   );
 }

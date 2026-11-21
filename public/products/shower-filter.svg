@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Filtered Shower Head">
-  <rect width="800" height="800" fill="#DDF0F7"/>
-  <circle cx="400" cy="340" r="190" fill="#2F86A6" opacity="0.14"/>
-  <rect x="270" y="210" width="260" height="260" rx="48" fill="#2F86A6" opacity="0.85"/>
+  <rect width="800" height="800" fill="#DCE6FF"/>
+  <circle cx="400" cy="340" r="190" fill="#2B4ACB" opacity="0.14"/>
+  <rect x="270" y="210" width="260" height="260" rx="72" fill="#2B4ACB"/>
   <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="700" fill="#ffffff">FS</text>
-  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#2F86A6">Filtered Shower Head</text>
-  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#2F86A6" opacity="0.7">chanhee-mall · Bathroom</text>
+  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#2B4ACB">Filtered Shower Head</text>
+  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#2B4ACB" opacity="0.7">Bathroom</text>
 </svg>

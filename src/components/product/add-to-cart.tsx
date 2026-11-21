@@ -64,7 +64,7 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
         <div className="flex flex-col gap-2">
           <Label htmlFor="variant">{t("product.option")}</Label>
           <Select value={variantId} onValueChange={setVariantId}>
-            <SelectTrigger id="variant" className="w-full" data-testid="variant-select">
+            <SelectTrigger id="variant" className="h-11 w-full rounded-xl bg-card" data-testid="variant-select">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -72,7 +72,7 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
                 <SelectItem key={v.id} value={v.id} disabled={v.stock <= 0}>
                   {name(v)}
                   {v.priceDelta !== 0 ? ` (${v.priceDelta > 0 ? "+" : ""}${formatKRW(v.priceDelta, locale)})` : ""}
-                  {v.stock <= 0 ? ` · ${t("product.soldOut")}` : ""}
+                  {v.stock <= 0 ? ` (${t("product.soldOut")})` : ""}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -82,23 +82,28 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
 
       <div className="flex items-center gap-3">
         <Label htmlFor="qty">{t("product.quantity")}</Label>
-        <div className="flex items-center rounded-md border">
-          <button type="button" className="px-3 py-1" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="-">
+        <div className="flex h-10 items-center overflow-hidden rounded-full bg-card ring-1 ring-input">
+          <button
+            type="button"
+            className="h-full px-3.5 text-lg hover:bg-secondary"
+            onClick={() => setQty((q) => Math.max(1, q - 1))}
+            aria-label="-"
+          >
             −
           </button>
           <input
             id="qty"
             inputMode="numeric"
-            className="w-10 border-x py-1 text-center"
+            className="w-9 bg-transparent text-center font-bold tabular-nums"
             value={qty}
             onChange={(e) => {
-              const n = Number(e.target.value.replace(/\D/g, ""));
+              const n = Number(e.target.value.replace(/D/g, ""));
               setQty(Math.min(Math.max(1, n || 1), MAX_QTY_PER_LINE));
             }}
           />
           <button
             type="button"
-            className="px-3 py-1"
+            className="h-full px-3.5 text-lg hover:bg-secondary"
             onClick={() => setQty((q) => Math.min(MAX_QTY_PER_LINE, q + 1))}
             aria-label="+"
           >
@@ -106,15 +111,27 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
           </button>
         </div>
         {variant && variant.stock > 0 && variant.stock <= 5 ? (
-          <span className="text-sm text-destructive">{t("product.stockLeft", { count: variant.stock })}</span>
+          <span className="rounded-md bg-butter px-2 py-0.5 text-xs font-bold text-ink">
+            {t("product.stockLeft", { count: variant.stock })}
+          </span>
         ) : null}
       </div>
 
-      <p className="text-2xl font-bold">{formatKRW(price * qty, locale)}</p>
-
-      <Button size="lg" disabled={soldOut || pending} onClick={onAdd} data-testid="add-to-cart">
-        {soldOut ? t("product.soldOut") : t("product.addToCart")}
-      </Button>
+      {/* ▶ 가격 + 담기 버튼: 모바일에서는 화면 아래에 붙어 있어서 엄지로 바로 누를 수 있음 */}
+      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t bg-card/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md md:static md:z-auto md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none">
+        <p className="font-display text-2xl leading-none text-ink tabular-nums md:text-3xl">
+          {formatKRW(price * qty, locale)}
+        </p>
+        <Button
+          size="lg"
+          className="h-12 flex-1 rounded-full text-base md:max-w-xs"
+          disabled={soldOut || pending}
+          onClick={onAdd}
+          data-testid="add-to-cart"
+        >
+          {soldOut ? t("product.soldOut") : t("product.addToCart")}
+        </Button>
+      </div>
     </div>
   );
 }

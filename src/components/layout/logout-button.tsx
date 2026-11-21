@@ -4,6 +4,7 @@
  */
 "use client";
 
+import { LogOut } from "lucide-react";
 import { useTransition } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { logoutAction } from "@/server/actions/auth";
@@ -17,7 +18,8 @@ export function LogoutButton({ label }: { label: string }) {
     <button
       type="button"
       disabled={pending}
-      className="rounded-md px-2 py-1 hover:bg-muted disabled:opacity-50"
+      aria-label={label}
+      className="grid size-9 place-items-center rounded-full hover:bg-secondary disabled:opacity-50 sm:flex sm:size-auto sm:px-2.5 sm:py-1.5"
       onClick={() =>
         start(async () => {
           await logoutAction();
@@ -27,7 +29,8 @@ export function LogoutButton({ label }: { label: string }) {
         })
       }
     >
-      {label}
+      <LogOut className="size-[18px] sm:hidden" />
+      <span className="hidden sm:inline">{label}</span>
     </button>
   );
 }

@@ -20,13 +20,13 @@ export function SearchBox({ placeholder }: { placeholder: string }) {
         router.push(q ? { pathname: "/products", query: { q } } : "/products");
       }}
     >
-      <SearchIcon className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
+      <SearchIcon className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-foreground" />
       <Input
         name="q"
         type="search"
         placeholder={placeholder}
         aria-label={placeholder}
-        className="pl-8"
+        className="h-10 rounded-full border-transparent bg-card pl-9 shadow-[inset_0_0_0_1px_var(--border)]"
         maxLength={50}
       />
     </form>

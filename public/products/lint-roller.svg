@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Refillable Lint Roller">
-  <rect width="800" height="800" fill="#E2F4E4"/>
-  <circle cx="400" cy="340" r="190" fill="#3C8D4F" opacity="0.14"/>
-  <rect x="270" y="210" width="260" height="260" rx="48" fill="#3C8D4F" opacity="0.85"/>
+  <rect width="800" height="800" fill="#D3EEE1"/>
+  <circle cx="400" cy="340" r="190" fill="#1F6B4A" opacity="0.14"/>
+  <rect x="270" y="210" width="260" height="260" rx="72" fill="#1F6B4A"/>
   <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="700" fill="#ffffff">RL</text>
-  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#3C8D4F">Refillable Lint Roller</text>
-  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#3C8D4F" opacity="0.7">chanhee-mall · Cleaning</text>
+  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#1F6B4A">Refillable Lint Roller</text>
+  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#1F6B4A" opacity="0.7">Cleaning</text>
 </svg>
