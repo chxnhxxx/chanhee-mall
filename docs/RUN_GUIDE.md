@@ -134,6 +134,7 @@ pnpm dev
 | `pnpm gen:placeholders` | 상품 임시 그림(`public/products/*.svg`)을 다시 만들기                                                                                   |
 | `pnpm db:push`          | Supabase 에 DB 설계도 적용. **Supabase 연결 후에만** ([체크리스트 2단계](SETUP_CHECKLIST.md#2-supabase-데이터베이스로그인이미지실시간)) |
 | `pnpm db:types`         | Supabase 의 실제 DB 모양으로 코드 쪽 설명서 다시 만들기 (Supabase 연결 후)                                                              |
+| `pnpm db:setup`         | Supabase 에 표·규칙·데모 상품 한 번에 설치 (`.env.local` 에 `SUPABASE_DB_URL` 필요, 이미 설치돼 있으면 그대로 둠)                       |
 | `pnpm db:demo-users`    | Supabase 에 데모 계정 2개 만들기 (Supabase 연결 후)                                                                                     |
 | `pnpm db:seed-sql`      | 데모 상품 목록으로 `supabase/seed.sql` 다시 만들기                                                                                      |
 

@@ -13,6 +13,17 @@
 
 ---
 
+## 지금까지 된 것 (2026-11-22 기준)
+
+- [x] **Vercel 배포:** https://chanhee-mall.vercel.app (무료 Hobby 플랜, 검색엔진 노출 꺼짐). 배포는 제가 내 컴퓨터에서 `vercel deploy --prod` 명령으로 올렸습니다. GitHub 연결은 아직 안 했습니다.
+- [x] **Supabase 연결:** 표·보안 규칙·데모 상품 24개 설치(`pnpm db:setup`), 데모 계정 2개 생성(`pnpm db:demo-users`). 데이터베이스 위치는 **인도 뭄바이(ap-south-1)** 로 만들어져 있어서, Vercel 서버 위치도 가까운 뭄바이(`vercel.json` 의 `bom1`)로 맞췄습니다.
+- [x] Vercel 환경변수: `SESSION_SECRET`(무작위 값), `NEXT_PUBLIC_SITE_URL`, Supabase 키 3개. 값은 Vercel 에만 있고 코드에는 없습니다.
+- [x] 실제 주소에서 주문 → 모의 결제 → 취소, 관리자 송장 입력까지 자동 검사 4개 통과.
+- [ ] 아직 안 한 것: 토스 테스트 키(지금은 모의 결제), 메일(Resend), Upstash, Sentry, GA4, GitHub 연결, 예약 작업용 Vault 값(2-5), 데모 관리자 비밀번호 바꾸기(10단계).
+- **주의:** 이제 내 컴퓨터의 `.env.local` 에도 Supabase 키가 있어서, 내 컴퓨터에서 `pnpm dev` 로 켠 쇼핑몰도 **배포된 사이트와 같은 데이터베이스**를 씁니다. 내 컴퓨터에서 주문하면 실제 사이트 관리자 화면에도 보입니다.
+
+---
+
 ## 들어가기 전에: 키를 어디에 적나
 
 외부 서비스에 가입하면 **API 키**(서비스가 "당신이 누구인지" 확인하는 열쇠)를 줍니다. 이 키를 쇼핑몰에 알려 주는 곳이 두 군데입니다.
@@ -129,9 +140,15 @@
   - **SQL 이란:** 데이터베이스에 일을 시키는 전용 언어입니다. 이 파일은 상품·주문·회원 시트와 보안 규칙(RLS)을 만듭니다.
   - **정상:** 아래에 `Success. No rows returned`
 - [ ] 같은 방법으로 `supabase\migrations\20261122000002_cron_queues.sql` 실행 (예약 작업·대기열)
-  - [미확인] 무료 플랜에서 예약 작업(pg_cron)·대기열(pgmq) 기능을 쓸 수 있는지. 실패하면 오류 글자를 복사해 보내 주세요. **Database → Extensions** 에서 `pg_cron`, `pgmq` 를 직접 켜고 다시 실행하면 될 수 있습니다.
+  - (확인됨, 2026-11-22) 무료 플랜에서도 예약 작업(pg_cron)·대기열(pgmq) 설치가 됐습니다. 혹시 실패하면 실패하면 오류 글자를 복사해 보내 주세요. **Database → Extensions** 에서 `pg_cron`, `pgmq` 를 직접 켜고 다시 실행하면 될 수 있습니다.
 - [ ] 같은 방법으로 `supabase\seed.sql` 실행 (데모 상품 24개 넣기)
   - **정상:** 왼쪽 **Table Editor → products** 에 상품 24줄이 보입니다
+
+**방법 C. 명령어 한 줄로 (지금 쓰는 방법, 이미 완료)**
+
+- `.env.local` 에 `SUPABASE_DB_URL`(Supabase 화면 **Connect → Session pooler** 주소, 비밀번호 포함)을 넣고 `pnpm db:setup` 을 실행하면 위 SQL 3개를 순서대로 넣어 줍니다. 이미 설치돼 있으면 아무것도 바꾸지 않습니다.
+  - **정상:** `적용: …` 세 줄과 `상품 24개 확인`
+  - **Direct connection** 주소(`db.….supabase.co`)는 이 PC 에서 연결되지 않습니다. 꼭 **Session pooler** 주소를 쓰세요.
 
 **방법 B. 명령어로 (개발자 방식, 참고)**
 
