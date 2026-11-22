@@ -27,7 +27,7 @@ jobs:
       DATA_BACKEND: memory
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: pnpm/action-setup@v4 # package.json 의 packageManager 버전 사용
 
