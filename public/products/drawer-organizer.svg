@@ -1,7 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Drawer Organizer (6 pcs)">
   <rect width="800" height="800" fill="#E9E5DD"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#6E685F" opacity="0.55">DO</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#6E685F" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6E685F">Drawer Organizer (6 pcs)</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#6E685F" opacity="0.7">Storage</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="218" y="238" width="364" height="324" rx="10" fill="#e9e2d4" opacity=".7"/>
+    <rect x="234" y="254" width="152" height="140" rx="10" fill="#f6f4ef"/>
+    <rect x="396" y="254" width="170" height="70" rx="10" fill="#f6f4ef"/>
+    <rect x="396" y="334" width="170" height="60" rx="10" fill="#f6f4ef"/>
+    <rect x="234" y="404" width="100" height="142" rx="10" fill="#f6f4ef"/>
+    <rect x="344" y="404" width="100" height="142" rx="10" fill="#f6f4ef"/>
+    <rect x="454" y="404" width="112" height="142" rx="10" fill="#f6f4ef"/>
+  </g>
 </svg>

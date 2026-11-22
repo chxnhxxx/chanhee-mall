@@ -1,7 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Glass Container Set (3)">
   <rect width="800" height="800" fill="#EAE6DE"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#6F6A62" opacity="0.55">GC</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#6F6A62" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6F6A62">Glass Container Set (3)</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#6F6A62" opacity="0.7">Kitchen</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="628" rx="180" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <rect x="250" y="470" width="300" height="150" rx="18" fill="#f6f4ef" fill-opacity=".7"/>
+    <rect x="240" y="448" width="320" height="28" rx="10" fill="#e9e2d4"/>
+    <rect x="275" y="332" width="250" height="110" rx="16" fill="#f6f4ef" fill-opacity=".7"/>
+    <rect x="265" y="312" width="270" height="26" rx="9" fill="#e9e2d4"/>
+    <rect x="300" y="218" width="200" height="88" rx="14" fill="#f6f4ef" fill-opacity=".7"/>
+    <rect x="290" y="198" width="220" height="24" rx="8" fill="#e9e2d4"/>
+    <line x1="270" y1="500" x2="270" y2="590" opacity=".35"/><line x1="295" y1="355" x2="295" y2="420" opacity=".35"/><line x1="318" y1="238" x2="318" y2="288" opacity=".35"/>
+  </g>
 </svg>

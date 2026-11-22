@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Silicone Spatula Set">
   <rect width="800" height="800" fill="#EAE6DE"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#6F6A62" opacity="0.55">SS</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#6F6A62" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6F6A62">Silicone Spatula Set</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#6F6A62" opacity="0.7">Kitchen</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="630" rx="170" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <g transform="rotate(-20 400 620)"><rect x="392" y="330" width="16" height="290" rx="8" fill="#e3d6bd"/><path d="M362 330 L438 330 L438 210 Q438 170 400 170 Q362 170 362 210 Z" fill="#e9e2d4"/></g>
+    <g><rect x="392" y="330" width="16" height="290" rx="8" fill="#e3d6bd"/><ellipse cx="400" cy="250" rx="46" ry="74" fill="#f6f4ef"/></g>
+    <g transform="rotate(20 400 620)"><rect x="392" y="330" width="16" height="290" rx="8" fill="#e3d6bd"/><path d="M360 330 L440 330 L440 190 L360 190 Z" fill="#e9e2d4"/><line x1="380" y1="210" x2="380" y2="310" opacity=".45"/><line x1="400" y1="210" x2="400" y2="310" opacity=".45"/><line x1="420" y1="210" x2="420" y2="310" opacity=".45"/></g>
+  </g>
 </svg>

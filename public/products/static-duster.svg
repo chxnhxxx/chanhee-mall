@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Static Duster">
   <rect width="800" height="800" fill="#E5E6E0"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#676A62" opacity="0.55">SD</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#676A62" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#676A62">Static Duster</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#676A62" opacity="0.7">Cleaning</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="630" rx="140" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <g transform="rotate(14 400 420)">
+      <rect x="386" y="380" width="28" height="250" rx="13" fill="#e3d6bd"/>
+      <path d="M326 384 C286 364 296 300 330 292 C318 250 362 218 392 240 C402 200 452 204 462 240 C504 234 524 282 496 306 C532 330 512 384 472 384 Z" fill="#f6f4ef"/>
+      <g opacity=".35" stroke-width="2.5"><path d="M350 360 L362 330"/><path d="M390 364 L396 320"/><path d="M432 362 L430 316"/><path d="M468 356 L460 320"/><path d="M372 290 L380 268"/><path d="M430 280 L428 256"/></g>
+    </g>
+  </g>
 </svg>

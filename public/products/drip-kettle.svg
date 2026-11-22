@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Pour-over Kettle">
   <rect width="800" height="800" fill="#EAE6DE"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#6F6A62" opacity="0.55">PK</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#6F6A62" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6F6A62">Pour-over Kettle</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#6F6A62" opacity="0.7">Kitchen</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="618" rx="160" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <path d="M300 600 L500 600 Q520 600 516 580 L490 384 Q485 352 455 352 L345 352 Q315 352 310 384 L284 580 Q280 600 300 600 Z" fill="#f6f4ef"/>
+    <path d="M345 352 Q400 302 455 352" fill="#e9e2d4"/>
+    <circle cx="400" cy="314" r="11" fill="#e9e2d4"/>
+    <path d="M296 560 C236 540 236 430 176 328" stroke-width="10"/>
+    <path d="M500 398 C584 398 594 542 508 562" stroke-width="12" fill="none"/>
+  </g>
 </svg>

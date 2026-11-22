@@ -1,7 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Diatomite Bath Mat">
   <rect width="800" height="800" fill="#E6E7E4"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#66696A" opacity="0.55">DB</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#66696A" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#66696A">Diatomite Bath Mat</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#66696A" opacity="0.7">Bathroom</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="624" rx="250" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <polygon points="160,592 640,592 640,610 160,610" fill="#e9e2d4"/>
+    <polygon points="232,468 568,468 640,592 160,592" fill="#f6f4ef"/>
+    <g fill="#5c574f" stroke="none" opacity=".22"><circle cx="300" cy="520" r="3"/><circle cx="380" cy="500" r="3"/><circle cx="470" cy="540" r="3"/><circle cx="540" cy="505" r="3"/><circle cx="250" cy="565" r="3"/><circle cx="420" cy="570" r="3"/><circle cx="590" cy="570" r="3"/></g>
+  </g>
 </svg>

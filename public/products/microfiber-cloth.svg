@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Microfiber Cloths (10)">
   <rect width="800" height="800" fill="#E5E6E0"/>
-  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#676A62" opacity="0.55">MC</text>
-  <line x1="340" y1="520" x2="460" y2="520" stroke="#676A62" stroke-width="2" opacity="0.4"/>
-  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#676A62">Microfiber Cloths (10)</text>
-  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#676A62" opacity="0.7">Cleaning</text>
+  <g fill="none" stroke="#5c574f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="400" cy="612" rx="190" ry="16" fill="#5c574f" opacity="0.07" stroke="none"/>
+    <g transform="rotate(-9 400 460)"><rect x="250" y="320" width="300" height="270" rx="12" fill="#e9e2d4"/></g>
+    <g transform="rotate(5 400 460)"><rect x="252" y="324" width="296" height="266" rx="12" fill="#ddd9d0"/></g>
+    <rect x="254" y="330" width="292" height="262" rx="12" fill="#f6f4ef"/>
+    <path d="M546 342 L546 430 L458 342 Z" fill="#e9e2d4"/>
+    <g opacity=".3" stroke-width="2.5"><line x1="290" y1="400" x2="500" y2="400"/><line x1="290" y1="440" x2="510" y2="440"/><line x1="290" y1="480" x2="510" y2="480"/><line x1="290" y1="520" x2="510" y2="520"/></g>
+  </g>
 </svg>
