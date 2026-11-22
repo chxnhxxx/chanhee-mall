@@ -36,10 +36,10 @@ async function SuccessContent({
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-16 text-center">
-      <div className="flex size-16 items-center justify-center rounded-full bg-green-100 text-3xl text-green-700">
+      <div className="flex size-16 items-center justify-center rounded-full bg-[#e2e8df] text-3xl text-[#3d5238]">
         ✓
       </div>
-      <h1 className="text-2xl font-bold" data-testid="success-title">
+      <h1 className="text-2xl font-light tracking-tight" data-testid="success-title">
         {t("successTitle")}
       </h1>
       <p className="text-muted-foreground">{t("successBody", { orderNumber: order!.orderNumber })}</p>

@@ -7,7 +7,10 @@ import { getTranslations } from "next-intl/server";
 export async function DemoBanner({ locale }: { locale: string }) {
   const t = await getTranslations({ locale, namespace: "demo" });
   return (
-    <div role="note" className="bg-ink px-4 py-1.5 text-center text-[11px] leading-snug text-white/80">
+    <div
+      role="note"
+      className="border-b border-border bg-secondary px-4 py-1.5 text-center text-[11px] leading-snug text-muted-foreground"
+    >
       {t("banner")}
     </div>
   );

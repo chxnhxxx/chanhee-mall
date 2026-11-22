@@ -24,7 +24,7 @@ export default async function CheckoutPage({ params }: PageProps<"/[locale]/chec
   const t = await getTranslations({ locale, namespace: "checkout" });
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">{t("title")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{t("title")}</h1>
       <Suspense fallback={<Skeleton className="h-96 w-full" />}>
         <CheckoutContent locale={locale} />
       </Suspense>

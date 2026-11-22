@@ -55,13 +55,13 @@ async function ProductList({
 
   const chip = (active: boolean) =>
     cn(
-      "shrink-0 rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
-      active ? "bg-ink text-white" : "bg-card text-ink ring-1 ring-border hover:ring-primary",
+      "shrink-0 border px-4 py-2 text-sm whitespace-nowrap transition-colors",
+      active ? "border-ink bg-ink text-card" : "border-border bg-card text-ink hover:border-ink",
     );
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="font-display text-3xl text-ink">{category ? (activeName ?? t("all")) : t("all")}</h1>
+      <h1 className="text-2xl font-light tracking-tight text-ink">{category ? (activeName ?? t("all")) : t("all")}</h1>
       {/* ▶ 카테고리 칩: 모바일에서는 옆으로 밀어서 넘김 */}
       <div className="-mx-4 no-scrollbar flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
         <Link href={q ? { pathname: "/products", query: { q } } : "/products"} className={chip(!category)}>

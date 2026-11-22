@@ -11,7 +11,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
     <footer className="border-t bg-card">
       <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 text-xs text-muted-foreground sm:flex-row sm:items-end sm:justify-between">
         <div className="flex flex-col gap-1">
-          <p className="font-display text-base text-ink">chanhee-mall</p>
+          <p className="text-base font-medium tracking-tight text-ink">chanhee-mall</p>
           <p>{t("business")}</p>
           <p>© 2026 chanhee-mall</p>
         </div>
@@ -19,7 +19,7 @@ export async function SiteFooter({ locale }: { locale: string }) {
           <Link href="/legal/terms" className="hover:text-ink">
             {t("terms")}
           </Link>
-          <Link href="/legal/privacy" className="font-bold text-ink hover:text-primary">
+          <Link href="/legal/privacy" className="font-medium text-ink underline-offset-4 hover:underline">
             {t("privacy")}
           </Link>
           <Link href="/legal/refund" className="hover:text-ink">

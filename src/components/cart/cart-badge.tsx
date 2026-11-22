@@ -21,7 +21,7 @@ export function CartBadge() {
   return (
     <span
       data-testid="cart-count"
-      className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-butter px-1 text-[11px] font-bold text-ink ring-2 ring-background"
+      className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium text-primary-foreground ring-2 ring-background"
     >
       {count > 99 ? "99+" : count}
     </span>

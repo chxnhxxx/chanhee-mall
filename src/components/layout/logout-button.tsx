@@ -19,7 +19,7 @@ export function LogoutButton({ label }: { label: string }) {
       type="button"
       disabled={pending}
       aria-label={label}
-      className="grid size-9 place-items-center rounded-full hover:bg-secondary disabled:opacity-50 sm:flex sm:size-auto sm:px-2.5 sm:py-1.5"
+      className="grid size-9 place-items-center hover:bg-secondary disabled:opacity-50 sm:flex sm:size-auto sm:px-2.5 sm:py-1.5"
       onClick={() =>
         start(async () => {
           await logoutAction();

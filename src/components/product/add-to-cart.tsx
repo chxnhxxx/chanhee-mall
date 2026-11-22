@@ -82,7 +82,7 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
 
       <div className="flex items-center gap-3">
         <Label htmlFor="qty">{t("product.quantity")}</Label>
-        <div className="flex h-10 items-center overflow-hidden rounded-full bg-card ring-1 ring-input">
+        <div className="flex h-10 items-center overflow-hidden border border-input bg-card">
           <button
             type="button"
             className="h-full px-3.5 text-lg hover:bg-secondary"
@@ -94,10 +94,10 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
           <input
             id="qty"
             inputMode="numeric"
-            className="w-9 bg-transparent text-center font-bold tabular-nums"
+            className="w-9 bg-transparent text-center font-medium tabular-nums"
             value={qty}
             onChange={(e) => {
-              const n = Number(e.target.value.replace(/D/g, ""));
+              const n = Number(e.target.value.replace(/\D/g, ""));
               setQty(Math.min(Math.max(1, n || 1), MAX_QTY_PER_LINE));
             }}
           />
@@ -111,20 +111,20 @@ export function AddToCart({ product, locale }: { product: Product; locale: "ko" 
           </button>
         </div>
         {variant && variant.stock > 0 && variant.stock <= 5 ? (
-          <span className="rounded-md bg-butter px-2 py-0.5 text-xs font-bold text-ink">
+          <span className="bg-kraft px-2 py-0.5 text-xs text-ink">
             {t("product.stockLeft", { count: variant.stock })}
           </span>
         ) : null}
       </div>
 
       {/* ▶ 가격 + 담기 버튼: 모바일에서는 화면 아래에 붙어 있어서 엄지로 바로 누를 수 있음 */}
-      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t bg-card/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-md md:static md:z-auto md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none">
-        <p className="font-display text-2xl leading-none text-ink tabular-nums md:text-3xl">
+      <div className="fixed inset-x-0 bottom-0 z-30 flex items-center gap-4 border-t bg-card/95 px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm md:static md:z-auto md:border-0 md:bg-transparent md:p-0 md:backdrop-blur-none">
+        <p className="text-xl leading-none font-bold text-ink tabular-nums md:text-2xl">
           {formatKRW(price * qty, locale)}
         </p>
         <Button
           size="lg"
-          className="h-12 flex-1 rounded-full text-base md:max-w-xs"
+          className="h-12 flex-1 text-[15px] font-normal tracking-wide md:max-w-xs"
           disabled={soldOut || pending}
           onClick={onAdd}
           data-testid="add-to-cart"

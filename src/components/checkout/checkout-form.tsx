@@ -97,7 +97,7 @@ export function CheckoutForm({ cart, defaultRecipient }: { cart: PricedCart; def
       <Script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" strategy="lazyOnload" />
       <form onSubmit={onSubmit} className="grid gap-6 lg:grid-cols-[1fr_320px]" noValidate>
         <section className="flex flex-col gap-4 rounded-xl border p-4">
-          <h2 className="font-bold">{t("shipping")}</h2>
+          <h2 className="font-medium">{t("shipping")}</h2>
           {field("recipient", t("recipient"), { autoComplete: "name" })}
           {field("phone", t("phone"), { autoComplete: "tel", inputMode: "tel", placeholder: "010-1234-5678" })}
           <div className="flex items-end gap-2">
@@ -112,7 +112,7 @@ export function CheckoutForm({ cart, defaultRecipient }: { cart: PricedCart; def
         </section>
 
         <aside className="flex h-fit flex-col gap-2 rounded-xl border p-4 text-sm">
-          <h2 className="font-bold">{t("summary")}</h2>
+          <h2 className="font-medium">{t("summary")}</h2>
           <ul className="flex flex-col gap-1">
             {cart.lines.map((l) => (
               <li key={l.variantId} className="flex justify-between gap-2">

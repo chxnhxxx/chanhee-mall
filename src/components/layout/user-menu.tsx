@@ -13,7 +13,7 @@ export async function UserMenu({ locale }: { locale: string }) {
   const session = await getSession();
   if (!session) {
     return (
-      <Link href="/login" className="rounded-full px-2.5 py-1.5 hover:bg-secondary">
+      <Link href="/login" className="px-2.5 py-1.5 hover:bg-secondary">
         {t("login")}
       </Link>
     );
@@ -21,14 +21,14 @@ export async function UserMenu({ locale }: { locale: string }) {
   return (
     <>
       {session.role === "admin" ? (
-        <Link href="/admin" className="rounded-full px-2.5 py-1.5 font-medium text-primary hover:bg-secondary">
+        <Link href="/admin" className="px-2.5 py-1.5 font-medium text-primary hover:bg-secondary">
           {t("admin")}
         </Link>
       ) : null}
       {/* ▶ 휴대폰에서는 아이콘만, 넓은 화면에서는 글자로 */}
       <Link
         href="/orders"
-        className="grid size-9 place-items-center rounded-full hover:bg-secondary sm:flex sm:size-auto sm:px-2.5 sm:py-1.5"
+        className="grid size-9 place-items-center hover:bg-secondary sm:flex sm:size-auto sm:px-2.5 sm:py-1.5"
         aria-label={t("orders")}
       >
         <ReceiptText className="size-[18px] sm:hidden" />

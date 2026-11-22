@@ -78,8 +78,8 @@ export default async function LegalPage({ params }: PageProps<"/[locale]/legal/[
   const body = BODY[doc as Doc][locale === "en" ? "en" : "ko"];
   return (
     <article className="mx-auto flex max-w-2xl flex-col gap-4">
-      <h1 className="text-2xl font-bold">{t(`${doc as Doc}Title`)}</h1>
-      <p className="rounded-md bg-amber-50 p-3 text-sm text-amber-900">{t("draftNotice")}</p>
+      <h1 className="text-2xl font-light tracking-tight">{t(`${doc as Doc}Title`)}</h1>
+      <p className="bg-kraft/60 p-3 text-sm text-ink">{t("draftNotice")}</p>
       {body.map((p) => (
         <p key={p} className="leading-relaxed">
           {p}

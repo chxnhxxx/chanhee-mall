@@ -22,7 +22,7 @@ async function AdminOrdersPageContent({ params, searchParams }: PageProps<"/[loc
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">주문 ({orders.length})</h1>
+      <h1 className="text-xl font-medium">주문 ({orders.length})</h1>
       <div className="flex flex-wrap gap-1 text-sm">
         <FilterLink label="전체" active={!status} href="/admin/orders" />
         {ORDER_STATUSES.map((s) => (
@@ -75,10 +75,7 @@ async function AdminOrdersPageContent({ params, searchParams }: PageProps<"/[loc
 
 function FilterLink({ label, active, href }: { label: string; active: boolean; href: string }) {
   return (
-    <Link
-      href={href}
-      className={`rounded-full border px-3 py-1 ${active ? "border-primary bg-primary text-primary-foreground" : "hover:bg-muted"}`}
-    >
+    <Link href={href} className={`border px-3 py-1 ${active ? "border-ink bg-ink text-card" : "hover:bg-muted"}`}>
       {label}
     </Link>
   );

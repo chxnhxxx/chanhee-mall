@@ -1,8 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="Pour-over Kettle">
-  <rect width="800" height="800" fill="#FFF1BF"/>
-  <circle cx="400" cy="340" r="190" fill="#8A6200" opacity="0.14"/>
-  <rect x="270" y="210" width="260" height="260" rx="72" fill="#8A6200"/>
-  <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="700" fill="#ffffff">PK</text>
-  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="#8A6200">Pour-over Kettle</text>
-  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#8A6200" opacity="0.7">Kitchen</text>
+  <rect width="800" height="800" fill="#EAE6DE"/>
+  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="#6F6A62" opacity="0.55">PK</text>
+  <line x1="340" y1="520" x2="460" y2="520" stroke="#6F6A62" stroke-width="2" opacity="0.4"/>
+  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#6F6A62">Pour-over Kettle</text>
+  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="#6F6A62" opacity="0.7">Kitchen</text>
 </svg>

@@ -23,7 +23,7 @@ export default async function CartPage({ params }: PageProps<"/[locale]/cart">) 
   const t = await getTranslations({ locale, namespace: "cart" });
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-2xl font-bold">{t("title")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{t("title")}</h1>
       <Suspense fallback={<Skeleton className="h-64 w-full" />}>
         <CartContent />
       </Suspense>

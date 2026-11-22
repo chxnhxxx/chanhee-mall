@@ -26,7 +26,7 @@ export function SearchBox({ placeholder }: { placeholder: string }) {
         type="search"
         placeholder={placeholder}
         aria-label={placeholder}
-        className="h-10 rounded-full border-transparent bg-card pl-9 shadow-[inset_0_0_0_1px_var(--border)]"
+        className="h-10 border-border bg-card pl-9 shadow-none"
         maxLength={50}
       />
     </form>

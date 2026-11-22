@@ -40,7 +40,7 @@ async function OrderDetail({ params }: { params: Promise<{ locale: string; order
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-6">
       <div className="flex items-center justify-between gap-2">
-        <h1 className="text-2xl font-bold">{t("detail")}</h1>
+        <h1 className="text-2xl font-light tracking-tight">{t("detail")}</h1>
         <StatusBadge status={o.status} label={ts(o.status)} />
       </div>
 
@@ -63,7 +63,7 @@ async function OrderDetail({ params }: { params: Promise<{ locale: string; order
       </dl>
 
       {o.status === "pending_payment" ? (
-        <div className="flex flex-col gap-2 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm">
+        <div className="flex flex-col gap-2 border border-kraft bg-kraft/40 p-4 text-sm">
           <p>{t("expiresAt", { time: format.dateTime(new Date(o.expiresAt), { timeStyle: "short" }) })}</p>
           <Button asChild className="w-fit">
             <Link href={`/checkout/pay/${o.orderNumber}`}>{t("payNow")}</Link>

@@ -23,7 +23,7 @@ async function AdminProductsPageContent({ params }: PageProps<"/[locale]/admin/p
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">상품 ({products.length})</h1>
+        <h1 className="text-xl font-medium">상품 ({products.length})</h1>
         <Button asChild>
           <Link href="/admin/products/new">새 상품</Link>
         </Button>
@@ -53,7 +53,7 @@ async function AdminProductsPageContent({ params }: PageProps<"/[locale]/admin/p
                   <TableCell className="hidden md:table-cell">{catName.get(p.categoryId) ?? "-"}</TableCell>
                   <TableCell className="text-right">{formatKRW(p.price)}</TableCell>
                   <TableCell
-                    className={`text-right ${stock === 0 ? "text-destructive" : stock < 5 ? "text-amber-600" : ""}`}
+                    className={`text-right ${stock === 0 ? "text-destructive" : stock < 5 ? "text-primary" : ""}`}
                   >
                     {stock}
                   </TableCell>

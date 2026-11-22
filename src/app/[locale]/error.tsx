@@ -16,7 +16,7 @@ export default function ErrorPage({ error, reset }: { error: Error & { digest?: 
   }, [error]);
   return (
     <div className="flex flex-col items-center gap-4 py-24 text-center">
-      <h1 className="text-2xl font-bold">{t("errorTitle")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{t("errorTitle")}</h1>
       {error.digest ? <p className="text-xs text-muted-foreground">ref: {error.digest}</p> : null}
       <Button onClick={reset}>{t("retry")}</Button>
     </div>

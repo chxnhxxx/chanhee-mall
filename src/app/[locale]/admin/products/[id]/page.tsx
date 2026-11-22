@@ -18,7 +18,7 @@ async function EditProductPageContent({ params }: PageProps<"/[locale]/admin/pro
   if (!product) notFound();
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">상품 수정 · {product.nameKo}</h1>
+      <h1 className="text-xl font-medium">상품 수정 · {product.nameKo}</h1>
       <ProductForm categories={categories} product={product} uploadEnabled={features.supabase} />
     </div>
   );

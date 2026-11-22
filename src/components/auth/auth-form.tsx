@@ -65,7 +65,7 @@ export function AuthForm({
 
   return (
     <div className="mx-auto flex w-full max-w-sm flex-col gap-5 py-8">
-      <h1 className="text-2xl font-bold">{mode === "login" ? t("loginTitle") : t("signupTitle")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{mode === "login" ? t("loginTitle") : t("signupTitle")}</h1>
       {state && !state.ok ? (
         <Alert variant="destructive">
           <AlertDescription>{t(`errors.${state.code ?? "ERROR"}` as never)}</AlertDescription>

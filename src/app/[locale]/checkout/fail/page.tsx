@@ -42,7 +42,7 @@ async function FailContent({
 
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 py-16 text-center">
-      <h1 className="text-2xl font-bold">{t("failTitle")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{t("failTitle")}</h1>
       <p className="text-muted-foreground">{KNOWN_CODES.has(code) ? te(code as never) : t("failBody")}</p>
       <div className="flex gap-2">
         {orderId ? (

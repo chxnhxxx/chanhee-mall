@@ -17,10 +17,16 @@ export async function SiteHeader({ locale }: { locale: string }) {
   const categories = await getCategories();
   return (
     // ▶ 스크롤해도 맨 위에 붙어 있는 머리글 (모바일에서 장바구니·검색에 바로 손이 가도록)
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur-sm">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-3 gap-y-2 px-4 pt-3 pb-2">
-        <Link href="/" className="flex items-center gap-2 font-display text-lg leading-none text-ink sm:text-xl">
-          <span aria-hidden className="grid size-7 place-items-center rounded-lg bg-primary text-sm text-butter">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-base leading-none font-medium tracking-tight text-ink sm:text-lg"
+        >
+          <span
+            aria-hidden
+            className="grid size-7 place-items-center bg-primary text-[13px] font-normal text-primary-foreground"
+          >
             찬
           </span>
           chanhee-mall
@@ -35,26 +41,23 @@ export async function SiteHeader({ locale }: { locale: string }) {
           </Suspense>
           <Link
             href="/cart"
-            className="relative ml-1 grid size-10 place-items-center rounded-full bg-ink text-white transition-colors hover:bg-primary"
+            className="relative ml-1 grid size-10 place-items-center text-ink transition-colors hover:bg-secondary"
             aria-label={t("cart")}
           >
-            <ShoppingBag className="size-[18px]" strokeWidth={2.2} />
+            <ShoppingBag className="size-5" strokeWidth={1.5} />
             <CartBadge />
           </Link>
         </nav>
       </div>
       <nav className="mx-auto no-scrollbar flex max-w-6xl gap-1.5 overflow-x-auto px-4 pb-2.5 text-sm">
-        <Link
-          href="/products"
-          className="rounded-full px-3 py-1 font-medium whitespace-nowrap text-ink hover:bg-secondary"
-        >
+        <Link href="/products" className="px-3 py-1 whitespace-nowrap text-ink underline-offset-4 hover:underline">
           {t("products")}
         </Link>
         {categories.map((c) => (
           <Link
             key={c.id}
             href={{ pathname: "/products", query: { category: c.slug } }}
-            className="rounded-full px-3 py-1 whitespace-nowrap text-muted-foreground hover:bg-secondary hover:text-ink"
+            className="px-3 py-1 whitespace-nowrap text-muted-foreground underline-offset-4 hover:text-ink hover:underline"
           >
             {locale === "en" ? c.nameEn : c.nameKo}
           </Link>

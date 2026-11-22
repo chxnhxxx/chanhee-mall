@@ -41,7 +41,7 @@ async function ProductDetail({ params }: { params: Promise<{ locale: string; slu
   return (
     // ▶ 모바일에서는 아래쪽 고정 구매 버튼이 내용을 가리지 않도록 여백(pb-28)을 둠
     <div className="grid gap-6 pb-28 md:grid-cols-2 md:gap-10 md:pb-0">
-      <div className="relative aspect-square overflow-hidden rounded-[1.75rem] bg-card ring-1 ring-border md:sticky md:top-32">
+      <div className="relative aspect-square overflow-hidden bg-sand md:sticky md:top-32">
         {product.images[0] ? (
           <Image
             src={product.images[0]}
@@ -55,7 +55,10 @@ async function ProductDetail({ params }: { params: Promise<{ locale: string; slu
       </div>
       <div className="flex flex-col gap-5">
         <div>
-          <h1 className="font-display text-3xl leading-tight text-ink sm:text-4xl" data-testid="product-name">
+          <h1
+            className="text-2xl leading-snug font-normal tracking-tight text-ink sm:text-3xl"
+            data-testid="product-name"
+          >
             {name}
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed whitespace-pre-line text-muted-foreground">
@@ -63,13 +66,13 @@ async function ProductDetail({ params }: { params: Promise<{ locale: string; slu
           </p>
         </div>
         <AddToCart product={product} locale={lang} />
-        <dl className="space-y-2 rounded-2xl bg-card p-4 text-sm ring-1 ring-border">
+        <dl className="space-y-2 border-t border-border pt-4 text-sm">
           <div className="flex gap-3">
-            <dt className="w-10 shrink-0 font-bold text-ink">{lang === "en" ? "Ship" : "배송"}</dt>
+            <dt className="w-10 shrink-0 font-medium text-ink">{lang === "en" ? "Ship" : "배송"}</dt>
             <dd className="text-muted-foreground">{t("shippingInfo")}</dd>
           </div>
           <div className="flex gap-3">
-            <dt className="w-10 shrink-0 font-bold text-ink">{lang === "en" ? "Return" : "환불"}</dt>
+            <dt className="w-10 shrink-0 font-medium text-ink">{lang === "en" ? "Return" : "환불"}</dt>
             <dd className="text-muted-foreground">{t("refundInfo")}</dd>
           </div>
         </dl>

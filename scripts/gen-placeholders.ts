@@ -9,12 +9,12 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { CATEGORIES, PRODUCTS } from "../src/server/seed-data.ts";
 
-// 카테고리별 [바탕색, 글자색] — 사이트 팔레트(코발트·버터·민트)에 맞춤
+// 카테고리별 [바탕색, 글자색] — 사이트 팔레트(미색·짙은 회색)에 맞춰, 색 차이는 아주 옅게만
 const palette: Record<string, [string, string]> = {
-  kitchen: ["#FFF1BF", "#8A6200"],
-  bathroom: ["#DCE6FF", "#2B4ACB"],
-  storage: ["#E6E1FA", "#4B3AA8"],
-  cleaning: ["#D3EEE1", "#1F6B4A"],
+  kitchen: ["#EAE6DE", "#6F6A62"],
+  bathroom: ["#E6E7E4", "#66696A"],
+  storage: ["#E9E5DD", "#6E685F"],
+  cleaning: ["#E5E6E0", "#676A62"],
 };
 
 const esc = (s: string) => s.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
@@ -32,11 +32,10 @@ for (const p of PRODUCTS) {
     .join("");
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" role="img" aria-label="${esc(p.nameEn)}">
   <rect width="800" height="800" fill="${bg}"/>
-  <circle cx="400" cy="340" r="190" fill="${fg}" opacity="0.14"/>
-  <rect x="270" y="210" width="260" height="260" rx="72" fill="${fg}"/>
-  <text x="400" y="372" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="110" font-weight="700" fill="#ffffff">${esc(initials)}</text>
-  <text x="400" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="40" fill="${fg}">${esc(p.nameEn)}</text>
-  <text x="400" y="650" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="${fg}" opacity="0.7">${esc(cat.nameEn)}</text>
+  <text x="400" y="420" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="150" font-weight="300" letter-spacing="6" fill="${fg}" opacity="0.55">${esc(initials)}</text>
+  <line x1="340" y1="520" x2="460" y2="520" stroke="${fg}" stroke-width="2" opacity="0.4"/>
+  <text x="400" y="590" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="${fg}">${esc(p.nameEn)}</text>
+  <text x="400" y="636" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3" fill="${fg}" opacity="0.7">${esc(cat.nameEn)}</text>
 </svg>
 `;
   writeFileSync(new URL(`../public/products/${p.slug}.svg`, import.meta.url), svg);

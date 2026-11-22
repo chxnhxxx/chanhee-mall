@@ -17,19 +17,17 @@ export function RestockList({ title, hint, items }: { title: string; hint: strin
   const left = done.filter((d) => !d).length;
 
   return (
-    <div className="relative rounded-[1.75rem] bg-card p-5 shadow-[0_1px_0_var(--border),0_18px_40px_-24px_rgb(24_32_58/0.45)] sm:p-6 lg:rotate-[1.2deg]">
-      {/* 메모지 위쪽 테이프 */}
-      <span aria-hidden className="absolute -top-2.5 left-8 h-5 w-20 -rotate-3 rounded-sm bg-butter/90" />
+    <div className="border border-border bg-card p-5 sm:p-7">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-display text-2xl text-ink">{title}</h2>
-        <span className="font-display text-lg text-primary tabular-nums">
+        <h2 className="text-lg font-medium tracking-tight text-ink">{title}</h2>
+        <span className="text-sm text-muted-foreground tabular-nums">
           {left}/{items.length}
         </span>
       </div>
       <p className="mt-1 text-xs text-muted-foreground">{hint}</p>
-      <ul className="mt-4 divide-y divide-dashed divide-border">
+      <ul className="mt-5 divide-y divide-border border-t border-border">
         {items.map((item, i) => (
-          <li key={item.slug} className="flex items-center gap-3 py-2.5">
+          <li key={item.slug} className="flex items-center gap-3 py-3">
             <button
               type="button"
               role="checkbox"
@@ -37,22 +35,22 @@ export function RestockList({ title, hint, items }: { title: string; hint: strin
               aria-label={item.name}
               onClick={() => setDone((d) => d.map((v, j) => (j === i ? !v : v)))}
               className={cn(
-                "grid size-6 shrink-0 place-items-center rounded-md border-2 transition-colors",
-                done[i] ? "border-primary bg-primary text-white" : "border-input bg-card hover:border-primary",
+                "grid size-5 shrink-0 place-items-center rounded-[2px] border transition-colors",
+                done[i] ? "border-ink bg-ink text-card" : "border-input bg-card hover:border-ink",
               )}
             >
-              {done[i] ? <Check className="size-4" strokeWidth={3} /> : null}
+              {done[i] ? <Check className="size-3.5" strokeWidth={2} /> : null}
             </button>
             <Link
               href={`/products/${item.slug}`}
               className={cn(
-                "flex-1 text-[15px] transition-colors hover:text-primary",
-                done[i] && "text-muted-foreground line-through decoration-primary decoration-2",
+                "flex-1 text-[15px] underline-offset-4 transition-colors hover:underline",
+                done[i] && "text-muted-foreground line-through",
               )}
             >
               {item.name}
             </Link>
-            <span className={cn("text-sm tabular-nums", done[i] ? "text-muted-foreground" : "font-bold text-ink")}>
+            <span className={cn("text-sm tabular-nums", done[i] ? "text-muted-foreground" : "font-medium text-ink")}>
               {item.price}
             </span>
           </li>

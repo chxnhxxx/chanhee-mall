@@ -44,7 +44,7 @@ async function PayContent({ params }: { params: Promise<{ locale: string; orderN
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-4">
-      <h1 className="text-2xl font-bold">{t("payment")}</h1>
+      <h1 className="text-2xl font-light tracking-tight">{t("payment")}</h1>
       <div className="rounded-xl border p-4 text-sm">
         <p className="font-medium">{order!.orderName}</p>
         <p className="text-muted-foreground">{order!.orderNumber}</p>
@@ -54,7 +54,7 @@ async function PayContent({ params }: { params: Promise<{ locale: string; orderN
       </div>
       {features.toss ? (
         <>
-          <p className="text-sm text-amber-700">{t("testNotice")}</p>
+          <p className="text-sm text-primary">{t("testNotice")}</p>
           <TossPayment
             clientKey={publicEnv.tossClientKey!}
             customerKey={session!.userId}

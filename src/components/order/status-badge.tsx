@@ -7,14 +7,14 @@ import type { OrderStatus } from "@/lib/domain";
 import { cn } from "@/lib/utils";
 
 const COLORS: Record<OrderStatus, string> = {
-  pending_payment: "bg-amber-100 text-amber-900",
-  paid: "bg-blue-100 text-blue-900",
-  shipping: "bg-indigo-100 text-indigo-900",
-  delivered: "bg-green-100 text-green-900",
-  cancelled: "bg-zinc-200 text-zinc-700",
-  return_requested: "bg-orange-100 text-orange-900",
-  refunded: "bg-zinc-200 text-zinc-700",
-  expired: "bg-zinc-200 text-zinc-700",
+  pending_payment: "bg-kraft text-ink",
+  paid: "bg-[#e3e7e9] text-[#33444d]",
+  shipping: "bg-[#e3e7e9] text-[#33444d]",
+  delivered: "bg-[#e2e8df] text-[#3d5238]",
+  cancelled: "bg-secondary text-muted-foreground",
+  return_requested: "bg-[#f1e0dc] text-primary",
+  refunded: "bg-secondary text-muted-foreground",
+  expired: "bg-secondary text-muted-foreground",
 };
 
 export function StatusBadge({ status, label }: { status: OrderStatus; label: string }) {

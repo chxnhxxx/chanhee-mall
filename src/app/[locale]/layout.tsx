@@ -3,7 +3,7 @@
  * 리뷰 순서: 3단계 (docs/REVIEW_GUIDE.md 참고)
  */
 import type { Metadata, Viewport } from "next";
-import { Black_Han_Sans, IBM_Plex_Sans_KR } from "next/font/google";
+import { Gothic_A1 } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
@@ -17,9 +17,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
-// ▶ 본문 글꼴(IBM Plex Sans KR)과 큰 제목·가격용 굵은 글꼴(검은고딕)
-const bodyFont = IBM_Plex_Sans_KR({ variable: "--font-sans", subsets: ["latin"], weight: ["400", "500", "700"] });
-const displayFont = Black_Han_Sans({ variable: "--font-display", subsets: ["latin"], weight: "400" });
+// ▶ 글꼴은 하나만: 담백한 고딕(Gothic A1). 제목과 가격은 색 대신 굵기로 구분합니다
+const bodyFont = Gothic_A1({ variable: "--font-sans", subsets: ["latin"], weight: ["300", "400", "500", "700"] });
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,7 +35,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Pr
   };
 }
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f3f5f9" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f7f6f2" };
 
 export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
   const { locale } = await params;
@@ -45,7 +44,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} className={`${bodyFont.variable} ${displayFont.variable} h-full antialiased`}>
+    <html lang={locale} className={`${bodyFont.variable} h-full antialiased`}>
       {/* ▶ 한국어 화면은 단어 중간에서 줄이 바뀌지 않도록(break-keep) */}
       <body className={locale === "ko" ? "flex min-h-full flex-col break-keep" : "flex min-h-full flex-col"}>
         <NextIntlClientProvider locale={locale} messages={messages}>

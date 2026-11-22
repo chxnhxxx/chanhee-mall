@@ -14,7 +14,7 @@ async function NewProductPageContent({ params }: PageProps<"/[locale]/admin/prod
   const categories = await repo().listCategories();
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold">새 상품</h1>
+      <h1 className="text-xl font-medium">새 상품</h1>
       <ProductForm categories={categories} uploadEnabled={features.supabase} />
     </div>
   );

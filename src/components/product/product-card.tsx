@@ -26,30 +26,30 @@ export function ProductCard({
   const name = locale === "en" ? product.nameEn : product.nameKo;
   return (
     <Link href={`/products/${product.slug}`} className="group flex flex-col gap-2.5" data-testid="product-card">
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-card ring-1 ring-border">
+      <div className="relative aspect-square overflow-hidden bg-sand">
         {product.images[0] ? (
           <Image
             src={product.images[0]}
             alt={name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="object-cover transition-opacity duration-300 group-hover:opacity-90"
           />
         ) : null}
         {soldOut ? (
           // ▶ 품절이면 사진 위를 어둡게 덮고 '품절' 표시
-          <div className="absolute inset-0 grid place-items-center bg-ink/55">
-            <span className="rounded-full bg-card px-3 py-1 text-xs font-bold text-ink">{soldOutLabel}</span>
+          <div className="absolute inset-0 grid place-items-center bg-background/55">
+            <span className="border border-ink/40 bg-card px-3 py-1 text-xs text-ink">{soldOutLabel}</span>
           </div>
         ) : stock <= LOW_STOCK && lowStockLabel ? (
-          <span className="absolute bottom-2 left-2 rounded-md bg-butter px-2 py-0.5 text-[11px] font-bold text-ink">
+          <span className="absolute bottom-2 left-2 bg-kraft px-2 py-0.5 text-[11px] text-ink">
             {lowStockLabel(stock)}
           </span>
         ) : null}
       </div>
       <div className="px-0.5">
-        <p className="line-clamp-2 text-sm leading-snug text-ink/85 group-hover:text-primary">{name}</p>
-        <p className="mt-1 font-display text-lg leading-none text-ink">
+        <p className="line-clamp-2 text-sm leading-snug text-ink/85 underline-offset-4 group-hover:underline">{name}</p>
+        <p className="mt-1.5 text-[15px] leading-none font-bold text-ink tabular-nums">
           {formatKRW(product.price, locale === "en" ? "en" : "ko")}
         </p>
       </div>
@@ -69,7 +69,7 @@ export function ProductGrid({
   lowStockLabel?: (count: number) => string;
 }) {
   return (
-    <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
       {products.map((p) => (
         <ProductCard key={p.id} product={p} locale={locale} soldOutLabel={soldOutLabel} lowStockLabel={lowStockLabel} />
       ))}
@@ -79,9 +79,9 @@ export function ProductGrid({
 
 export function ProductGridSkeleton() {
   return (
-    <div className="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-5">
+    <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-6">
       {Array.from({ length: 8 }).map((_, i) => (
-        <div key={i} className="aspect-[4/5] animate-pulse rounded-2xl bg-muted" />
+        <div key={i} className="aspect-[4/5] animate-pulse bg-muted" />
       ))}
     </div>
   );
